@@ -1,0 +1,4 @@
+<stdio.h>, <stdlib.h>, <string.h>, <stdint.h>, <stddef.h>, <stdbool.h>, <ctype.h>, 
+<math.h>, <time.h>, <errno.h>, <assert.h>, <stdarg.h>, <setjmp.h>, <signal.h>, <limits.h>,
+ <float.h>, <inttypes.h>, <wchar.h>, <wctype.h>, <stdalign.h>, <stdnoreturn.h>,
+ <stdatomic.h>, <tgmath.h>, <uchar.h>
