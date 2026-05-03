@@ -1,41 +1,46 @@
 package pages;
 
-public class Pages implements PageTypes {
+public class Pages {
 
+    // Home screen
     public void homeScreen() {
         System.out.println("-----------------------------");
         System.out.println("     WELCOME TO BANK");
         System.out.println("-----------------------------");
         System.out.println("1. Login\n");
         System.out.println("2. Create account\n");
+        System.out.println("3. Exit\n");
         System.out.print("Enter your choice: ");
     }
 
-     //USER HUB
+     //USER HUB, after logging in
     public void userHub() {
-        System.out.println("1. Detailed Information");
-        System.out.println("2. Check Balance");
-        System.out.println("3. Take Loan");
-        System.out.println("4. Repay Loan");
-        System.out.println("5. Withdraw from Balance");
-        System.out.println("6. Deposit into Balance");
-        System.out.println("7. Transfer Balance");
-        System.out.println("8. Exit\n");
+        System.out.println("\033[1m1. Detailed Information\033[0m");
+        System.out.println("\033[1m2. Check Balance\033[0m");
+        System.out.println("\033[1m3. Take Loan\033[0m");
+        System.out.println("\033[1m4. Repay Loan\033[0m");
+        System.out.println("\033[1m5. Withdraw from Balance\033[0m");
+        System.out.println("\033[1m6. Deposit into Balance\033[0m");
+        System.out.println("\033[1m7. Transfer Balance\033[0m");
+        System.out.println("\033[1m8. Exit\n\033[0m");
         System.out.print("Choose: ");
     }
 
+    // login screen
     public void loginScreen() {
         System.out.println("-----------------------------");
         System.out.println("  LOGGING IN");
         System.out.println("-----------------------------");
     }
 
+    // create screen
     public void createScreen(){
         System.out.println("-----------------------------");
         System.out.println("  CREATING ACCOUNT");
         System.out.println("-----------------------------");
     }
 
+    // loan screen
     public void loanRulesScreen(){
         System.out.println("1. A user can only have one active loan at a time.");
         System.out.println("2. Loan amount must be between $100 and $50,000.");

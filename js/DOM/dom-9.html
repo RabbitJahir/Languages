@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>querySelector Demo</title>
+</head>
+<body>
+
+  <!-- ID -->
+  <h1 id="title">This is an ID</h1>
+
+  <!-- CLASS -->
+  <p class="text">This is a class</p>
+
+  <!-- TAG -->
+  <button>Click Me</button>
+
+  <script>
+
+    // SELECT BY ID
+    let idElement = document.querySelector("#title");
+
+    idElement.style.color = "red";
+    idElement.innerText = "Selected using ID";
+
+
+    // SELECT BY CLASS
+    let classElement = document.querySelector(".text");
+
+    classElement.style.fontSize = "25px";
+    classElement.innerText = "Selected using CLASS";
+
+
+    // SELECT BY TAG
+    let tagElement = document.querySelector("button");
+
+    tagElement.style.background = "black";
+    tagElement.style.color = "white";
+
+  </script>
+
+</body>
+</html>

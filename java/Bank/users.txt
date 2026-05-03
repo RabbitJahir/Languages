@@ -1,5 +1,2 @@
-Mamunur,1031,high,01782992,123.01,0.0
-Kamrul,1035,Coding,017442211,55.6,0.0
-Rabbit,1006,Rabbit,0182321,546.0,1230.0
-Ismail,1003,night,017829212,123.243,0.0
+IctCell,sabbirsir,loan newar account,01980602683,69000.0,0.0
 Sir,sir,sir,012312,0.0,0.0

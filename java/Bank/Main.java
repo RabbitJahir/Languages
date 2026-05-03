@@ -1,13 +1,11 @@
-// pages
-import pages.Pages;
-import users.Login;
-import users.UsersStorage;
-import ui.UI;
-
-// utils
+// pages 
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Scanner;
+import pages.Pages;
+import ui.UI;
+import users.Login; // locale is used for money showing
+import users.UsersStorage;
 
 public class Main {
 
@@ -15,6 +13,7 @@ public class Main {
 
         try (Scanner sc = new Scanner(System.in)) {
 
+            // shows dollar sign
             NumberFormat money = NumberFormat.getCurrencyInstance(Locale.US);
 
             // Building objects
@@ -22,15 +21,17 @@ public class Main {
             UsersStorage accountCheck = new UsersStorage();
             
 
+                // to use lator on, so entire screen knows currentuser
             String currentUser = null;
 
             //-----------------------------------
             // LOGIN LOOP
             
-            while (true) {
+            boolean loop_1 = true;
+            while (loop_1) {
 
                 UI.clearScreen();
-                page.homeScreen();
+                page.homeScreen(); //calls home screen from pages
 
                 int accountType = sc.nextInt();
                 sc.nextLine();
@@ -59,10 +60,15 @@ public class Main {
                         boolean created = accountCheck.createUser(username, password, type, mobile, 0.0, 0.0);
 
                         if (created) {
-                            accountCheck.saveToFile(); 
+                            accountCheck.saveToFile();  // save to file goes to users storage
                         }
 
                         UI.pause(sc);
+                    }
+                    case 3 -> {
+                        System.out.print("Logging out...");
+                        UI.pause(sc);
+                        System.exit(0); // ends the system, succesfully. Here 0 means normal/succesfully 
                     }
                     default -> {
                         System.out.println("Invalid option.");
@@ -80,14 +86,14 @@ public class Main {
 
             //-----------------------------------
             // USER MENU LOOP
-            boolean userLoop = true;
+            // boolean userLoop = true;
 
-            while (userLoop) {
+            while (true) {
 
                 UI.clearScreen();
-                System.out.println("-----------------------------");
-                System.out.printf("Welcome %s\n", currentUser);
-                System.out.println("-----------------------------");
+                System.out.println("\033[1m-----------------------------");
+                System.out.printf("    Welcome %s\n", currentUser);
+                System.out.println("-----------------------------\033[0m");
                 page.userHub();
                 int userHubChoose = sc.nextInt();
                 sc.nextLine();
@@ -99,24 +105,24 @@ public class Main {
                         //Details
                         UsersStorage.User user = accountCheck.getUser(currentUser); 
                         System.out.println("---------------------------"); 
-                        System.out.printf("Username      :  %s\n", user.username); 
-                        System.out.printf("Phone         :  %s\n", user.mobile); 
-                        System.out.printf("Account Type  :  %s\n ", user.accountType); 
+                        System.out.printf(" Username      :  %s\n", user.username); 
+                        System.out.printf(" Phone         :  %s\n", user.mobile); 
+                        System.out.printf(" Account Type  :  %s\n ", user.accountType); 
                         System.out.printf("Balance       :  %s\n", money.format(user.balance)); 
-                        System.out.printf("Loan          :  %s\n", user.loan);
+                        System.out.printf(" Loan          :  %s\n", user.loan);
                         System.out.println("---------------------------");
                         UI.pause(sc);
                     }
                     case 2 -> {
                         //balance
                         double balance = accountCheck.balance(currentUser);
-                        System.out.printf("Current balance is: %s\n\n", money.format(balance));
+                        System.out.printf("\n\033[34mCurrent balance :\033[0m %s\n\n", money.format(balance));
                         UI.pause(sc);
                     }
 
                     case 3 ->{
                         // take Loan
-                        double loan = accountCheck.loan(currentUser);
+                        double loan = accountCheck.loan(currentUser);   
                         System.out.printf("Current loan is: %s\n\n", loan);
 
                         page.loanRulesScreen();
@@ -134,22 +140,23 @@ public class Main {
                             UI.pause(sc);
                             continue;
                         } else{
-                            loan += newLoan;
-                            accountCheck.updateLoan(currentUser, newLoan);
-                            accountCheck.saveToFile();
-                        }
+                            System.out.print("\nTotal duration to repay the loan in months(3, 6, 12, 24): ");
+                            int timeLoan = sc.nextInt();
+                            sc.nextLine();
 
-                        System.out.print("\nTotal duration to repay the loan in months(3, 6, 12, 25): ");
-                        int timeLoan = sc.nextInt();
-                        sc.nextLine();
-                        if(timeLoan != 3 || timeLoan != 6 || timeLoan != 12 || timeLoan != 24){
-                            System.out.print("\nPlese choose from the given range (3, 6, 12, 24).");
-                            UI.pause(sc);
-                            continue;
-                        } else {
-
+                                if(timeLoan == 3 || timeLoan == 6 || timeLoan == 12 || timeLoan == 24){
+                                    double addLoan = accountCheck.loan(currentUser);
+                                    newLoan+=addLoan;
+                                    accountCheck.updateLoan(currentUser, newLoan);
+                                    accountCheck.saveToFile();
+                                    System.out.println("Succesfully loan given.");
+                                } else {
+                                    System.out.print("\nPlese choose from the given range (3, 6, 12, 24).");
+                                }
                         }
-                        System.out.printf("\nCurrent loan is: %s\n\n", money.format(newLoan));
+                        
+                        double loanCheck = accountCheck.loan(currentUser);
+                        System.out.printf("\nCurrent loan : %s\n\n", money.format(loanCheck));
                         UI.pause(sc);
                     }
 
@@ -159,32 +166,41 @@ public class Main {
 
                         System.out.printf("Total loan: %s\n", money.format(loan));
 
-                        System.out.print("Amount to be repayed: \n");
-                        System.out.print("Amount repaying: \n");
+                        System.out.print("\n\nAmount repaying: ");
                         double repayLoan = sc.nextDouble();
+                        sc.nextLine();
+                        
                         if(repayLoan<0){
                             System.out.println("Can not repay loan in negative");
                         }
                         else{
-                            System.out.println("loan repayed.");
+                            double minusLoan = accountCheck.loan(currentUser);
+                            minusLoan-=repayLoan;
+                            accountCheck.updateLoan(currentUser, minusLoan);
+                            accountCheck.saveToFile();
+                            System.out.println("Loan repayed.");    
                         }
+                        double loanCheck = accountCheck.loan(currentUser);
+                        System.out.printf("\nCurrent loan : %s\n\n", money.format(loanCheck));
                         UI.pause(sc);
                     }
 
                     case 5 -> {
                         //withdraw
                         double balance = accountCheck.balance(currentUser);
-                        System.out.printf("Current balance is: %s\n\n", money.format(balance));
+                        System.out.printf("\033[1mCurrent balance :\033[0m %s\n\n", money.format(balance));
 
                         System.out.print("Give an amount to withdraw: ");
                         double withdraw = sc.nextDouble();
                         sc.nextLine();
 
-                        if (withdraw >= balance || balance - withdraw < 100) {
-                            System.out.println("\n\nCannot withdraw more than balance (keep minimum $100).");
+                        if (withdraw >= balance ) {
+                            System.out.println("\n\n\033[1m\033[31mCannot withdraw more than balance \033[0m");
                         } else if (withdraw < 0) {
-                            System.out.println("Cannot withdraw negative amount.");
-                        } else {
+                            System.out.println("\n\n\033[1m\033[31mCannot withdraw negative amount.\033[0m");
+                        } else if(balance - withdraw < 100){
+                            System.out.println("\n\n\033[1m\033[31mCannot withdraw everything\033[0m \033[1m(keep minimum $100).\033[0m");
+                        } else{
                             balance -= withdraw;
                             accountCheck.updateBalance(currentUser, balance);
                             accountCheck.saveToFile();
@@ -224,12 +240,12 @@ public class Main {
                     case 8 -> {
                         //exit
                         UI.clearScreen();
-                        System.out.println("Exiting.\nThank you for trusting us!");
-                        userLoop = false;
+                        System.out.println("\n\n\n\033[32m\033[1mThank you for trusting us!\033[0m");
+                        System.exit(0);
                     }
 
                     default -> {
-                        System.out.println("Wrong input");
+                        System.out.println("\033[31mWrong input\033[0m");
                         UI.pause(sc);
                     }
                 }

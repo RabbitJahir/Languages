@@ -1,12 +1,12 @@
 package users;
 
-import java.util.HashMap;
 import java.io.*;
+import java.util.HashMap;
 
 public class UsersStorage {
 
 
-    private HashMap<String, User> users = new HashMap<>();
+    final private HashMap<String, User> users = new HashMap<>();
 
     public UsersStorage() {
 
@@ -28,10 +28,10 @@ public class UsersStorage {
                 );
             }
 
-            System.out.println("Data saved successfully.");
+            System.out.println("\033[32mData saved successfully.\033[0m");
 
         } catch (IOException error) {
-            System.out.println("Error saving file.");
+            System.out.println("\033[31mError saving file.\033[0m");
         }
     }
 
@@ -133,7 +133,7 @@ public class UsersStorage {
      public boolean createUser(String username, String password, String accountType, String mobile, Double balance, Double loan) {
 
         if (users.containsKey(username)) {
-            System.out.println("Username already exists!");
+            System.out.println("\033[31mUsername already exists!\033[0m");
             return false;
         }
 
@@ -141,7 +141,7 @@ public class UsersStorage {
 
         users.put(username, newUser);
 
-        System.out.println("Account created successfully!");
+        System.out.println("\033[32mAccount created successfully!\033[0m");
 
         return true;
     }

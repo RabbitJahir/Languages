@@ -19,8 +19,8 @@ public class Login {
             
             return currentUser;
         } else {
-            System.out.println("\nUser not found or password wrong.");
-            System.out.println("Login failed. Try again.");
+            System.out.println("\n\033[31m\033[1mUser not found or password wrong.\033[0m");
+            System.out.println("\n\033[1m\033[31mLogin failed. Try again.\033[0m");
             return null;
         }
     }

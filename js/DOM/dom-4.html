@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <input id="name" placeholder="Enter name" />
+    <button onclick="show()">Submit</button>
+
+    <script>
+      function show() {
+        // .value works for user inputs, input fields, textarea
+        let value = document.getElementById("name").value;
+        // shows in console, ctrl+shit+i
+        console.log(value);
+      }
+    </script>
+  </body>
+</html>

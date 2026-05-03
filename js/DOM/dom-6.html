@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Events Demo</title>
+    <style>
+      body {
+        font-family: Arial;
+        padding: 20px;
+      }
+      .box {
+        width: 200px;
+        height: 100px;
+        background: lightblue;
+        margin-top: 10px;
+        text-align: center;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>JavaScript Events Demo</h2>
+
+    <!-- CLICK EVENT -->
+    <button id="clickBtn">Click Me</button>
+    <p id="clickText"></p>
+
+    <hr />
+
+    <!-- INPUT EVENT -->
+    <input id="inputBox" placeholder="Type something" />
+    <p id="inputText"></p>
+
+    <hr />
+
+    <!-- KEYDOWN EVENT -->
+    <input id="keyBox" placeholder="Press keys" />
+    <p id="keyText"></p>
+
+    <hr />
+
+    <!-- MOUSE EVENTS -->
+    <div class="box" id="hoverBox">Hover me</div>
+
+    <hr />
+
+    <!-- CHANGE EVENT -->
+    <select id="selectBox">
+      <option value="">Choose</option>
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+    </select>
+    <p id="selectText"></p>
+
+    <hr />
+
+    <!-- LOAD EVENT -->
+    <p id="loadText"></p>
+
+    <script>
+      // CLICK EVENT
+      document.getElementById("clickBtn").addEventListener("click", () => {
+        document.getElementById("clickText").innerText = "Button clicked!";
+      });
+
+      // INPUT EVENT
+      document.getElementById("inputBox").addEventListener("input", (e) => {
+        document.getElementById("inputText").innerText =
+          "Typing: " + e.target.value;
+      });
+
+      // KEYDOWN EVENT
+      document.getElementById("keyBox").addEventListener("keydown", (e) => {
+        document.getElementById("keyText").innerText = "Key pressed: " + e.key;
+      });
+
+      // MOUSE EVENTS
+      let box = document.getElementById("hoverBox");
+
+      box.addEventListener("mouseover", () => {
+        box.style.background = "yellow";
+        box.innerText = "Mouse over";
+      });
+
+      box.addEventListener("mouseout", () => {
+        box.style.background = "lightblue";
+        box.innerText = "Hover me";
+      });
+
+      // CHANGE EVENT
+      document.getElementById("selectBox").addEventListener("change", (e) => {
+        document.getElementById("selectText").innerText =
+          "Selected: " + e.target.value;
+      });
+
+      // LOAD EVENT
+      window.addEventListener("load", () => {
+        document.getElementById("loadText").innerText = "Page fully loaded!";
+      });
+    </script>
+  </body>
+</html>
