@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <p>Cart Quantity</p>
+    <p class="buttons">
+      <button onclick="console.log(`Cart Quantity : ${cartQuantity}`)">
+        Show Quantity
+      </button>
+
+      <button
+        onclick="
+          cartQuantity++;
+          if (cartQuantity >= 11) {
+            cartQuantity--;
+            console.log(`you can not have more than 10 items in your cart`);
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          } else {
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          }
+        "
+      >
+        Add to Cart
+      </button>
+
+      <button
+        onclick="
+          cartQuantity += 2;
+          if (cartQuantity >= 11) {
+            cartQuantity -= 2;
+            console.log(`you can not have more than 10 items in your cart`);
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          } else {
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          }
+        "
+      >
+        +2
+      </button>
+
+      <button
+        onclick="
+          cartQuantity += 3;
+          if (cartQuantity >= 11) {
+            cartQuantity -= 3;
+            console.log(`you can not have more than 10 items in your cart`);
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          } else {
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          }
+        "
+      >
+        +3
+      </button>
+
+      <button
+        onclick="
+          cartQuantity --;
+          if (cartQuantity == -1 ) {
+            cartQuantity ++;
+            console.log(`you can not have negative amount of items.`);
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          } else {
+            console.log(`Cart Quantity : ${cartQuantity}`);
+          }
+        "
+      >
+        -1
+      </button>
+
+      <button
+        onclick="
+          cartQuantity = 0;
+          console.log(`Cart is resetted. Quantity : ${cartQuantity}`);
+        "
+      >
+        Reset Cart
+      </button>
+    </p>
+
+    <script src="script.js"></script>
+  </body>
+</html>

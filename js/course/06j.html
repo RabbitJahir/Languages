@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Click to fliP!</p>
+    <button onClick="luck()">COIN FLIP</button>
+    <p id="showLuck"></p>
+    <script>
+      function luck() {
+        const random = Math.random();
+        document.getElementById("showLuck").innerText = `flipping...`;
+        let comLuck = random < 0.5 ? `head` : `tail`;
+        setTimeout(() => {
+          document.getElementById("showLuck").innerText = `its ${comLuck}`;
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>

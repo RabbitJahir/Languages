@@ -1,0 +1,15 @@
+body{
+  text-align: center;
+  font-size: 30px;
+}
+
+p.buttons{
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 10px;
+}
+
+button{
+  padding: 10px 10px;
+  margin: 2px 100px;
+}

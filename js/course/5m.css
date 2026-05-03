@@ -1,0 +1,25 @@
+.boxes{
+  background-color:black;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  margin: 100px auto;
+  width: 220px;
+}
+
+button{
+  background-color:aqua;
+  height: 50px;
+  font-size: 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer; 
+}
+
+.zero{
+  grid-column: span 3;
+}
+
+button:hover{
+  background-color: orange;
+}
