@@ -1,2 +1,3 @@
 IctCell,sabbirsir,loan newar account,01980602683,69000.0,0.0
+Rabbit,1006,personal,017966666,30000.0,0.0
 Sir,sir,sir,012312,0.0,0.0

@@ -34,8 +34,10 @@ public class loop1{
         // java.lang.Thread, a class from java package 
         Thread thread = new Thread(running);
 
-        // .start() is a method from Thread class
+        // thread method is set to be daemon, if the code finishes, stop this thread too
         thread.setDaemon(true);
+
+        // .start() is a method from Thread class
         thread.start(); 
 
         System.out.print("10 seconds to enter name: ");

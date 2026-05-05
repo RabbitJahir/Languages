@@ -1,10 +1,12 @@
-package main;
+package main
 
 import "fmt"
 
-func main(){
+func main() {
 
 	var name string = "string"
+
+	// colon function
 	name1, name2, number1, number2 := "literally", " anything ", 56, 67.8
 
 	fmt.Println("yolo")
