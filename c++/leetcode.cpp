@@ -3,11 +3,13 @@ using  namespace std;
 
 int main()
 {
-  for(int i=0;i<10;i++)
+  int i {2};
+  for(;i<=2;i++)
   {
-    for(int j=0; j<10; j++)
+    for(int j=0; j<1; j++)
     {
       cout<<"Hello"<<endl;
     }
   }
+  
 }

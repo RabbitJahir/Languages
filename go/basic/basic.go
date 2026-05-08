@@ -1,5 +1,5 @@
 package main
-
+import "basic/basic1.go"
 import "fmt"
 
 func main() {
