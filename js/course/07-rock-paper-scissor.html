@@ -12,10 +12,13 @@
     <button onclick="playGame(`paper`)">Paper</button>
 
     <button onclick="playGame(`scissor`)">Scissor</button>
+
+    //using objects
     <button onClick="scores.losses=0;scores.ties=0; scores.wins=0">
       Reset score
     </button>
     <script>
+      // object score
       const scores = {
         wins: 0,
         losses: 0,
@@ -51,6 +54,7 @@
           }
         }
 
+        // using objects
         if (result === `win`) {
           scores.wins++;
         } else if (result === `lose`) {
@@ -60,7 +64,7 @@
         }
 
         alert(`You chose ${playerMove}, computer chose ${commove},
-                you ${result} wins: ${scores.wins}, losses: ${scores.losses}, ties: ${scores.ties}`);
+                you ${result}\n wins: ${scores.wins}, losses: ${scores.losses}, ties: ${scores.ties}`);
       }
 
       function pickComMove() {

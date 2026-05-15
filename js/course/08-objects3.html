@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="name" placeholder="product name" />
+      <input
+        type="text"
+        id="starting-price"
+        placeholder="product starting price"
+      />
+      <button onclick="submit()">Submit</button>
+
+      <div>
+        <div id="products"></div>
+      </div>
+    </div>
+    <script>
+      function submit() {
+        let productName = document.getElementById("name").value;
+        let startingPrice = document.getElementById("starting-price").value;
+
+        const products = [];
+
+        products.push({
+          name: productName,
+          startingPrice: startingPrice,
+        });
+
+        // connect the value fromjs to html, display: none; and pop, and refresh, and pass again, 
+        document.getElementById("products").innerHTML += `
+                  <div
+                      style=" width: 200px; padding: 10px; margin-top: 10px; border-radius: 5px;
+
+                      background-color: aqua;"
+                  >
+                          Product: ${productName}
+                          <br />
+                          Ongoing Price: ${startingPrice}
+                          <input type="text" placeholder="New Price" id="newPrice">
+                          newPrice = startingPrice
+                  </div>
+              `;
+      }
+    </script>
+  </body>
+</html>

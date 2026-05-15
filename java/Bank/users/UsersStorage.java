@@ -8,6 +8,7 @@ public class UsersStorage {
 
     final private HashMap<String, User> users = new HashMap<>();
 
+    // used in Login, Creating, main, to display or get information/ balance / loan
     public UsersStorage() {
 
         loadFromFile();
@@ -15,6 +16,9 @@ public class UsersStorage {
 
     public void saveToFile() {
 
+        //java.io.FileWriter; 
+        // creates a single string, in a row
+        // FileWriter overrides the entire system every time its changed / saved
         try (FileWriter fw = new FileWriter("users.txt")) {
 
             for (User u : users.values()) {
@@ -35,16 +39,21 @@ public class UsersStorage {
         }
     }
 
+    // used in UsersStorage
     public void loadFromFile() {
 
+        //FileReader opens the file, BufferedReader reads line by line
         try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
 
             String line;
 
+            // reads single lines at a time
             while ((line = br.readLine()) != null) {
 
+                // splits each line using commas, making an array data[]
                 String data[] = line.split(",");
 
+                //checks to make sure each line has 6 inputs
                 if (data.length == 6) {
 
                     users.put(data[0], new User(
@@ -52,6 +61,7 @@ public class UsersStorage {
                             data[1],
                             data[2],
                             data[3],
+                            //converts text back to double
                             Double.parseDouble(data[4]),
                             Double.parseDouble(data[5])
                     ));
@@ -65,7 +75,7 @@ public class UsersStorage {
 
 
 
-    // USER CLASS
+    // USER CLASS, making a blueprint for all users
     public class User {
         public String username;
         String password;
@@ -84,10 +94,13 @@ public class UsersStorage {
         }
     }
 
+    // used in Login page
     public String login(String username, String password) {
 
+        // goes to User class, and matches in HashMap users
         User u = users.get(username);
 
+        // u.password = user input password .matches(stored password)
         if (u != null && u.password.equals(password)) {
             return username;
         }
@@ -95,6 +108,10 @@ public class UsersStorage {
         return null;
     }
 
+    public String accountType(String currentUser){
+        User u = users.get(currentUser);
+        return (u!=null)? u.accountType:null;
+    }
      // USER INTERFACES
      // Balance
     public double balance(String currentUser) {
@@ -117,10 +134,10 @@ public class UsersStorage {
     }
 
     // loan update
-    public void updateLoan(String currentUser, double newLoan){
+    public void updateLoan(String currentUser, double minusLoan){
         User u = users.get(currentUser);
         if(u!=null){
-            u.loan= newLoan;
+            u.loan= minusLoan;
         }
     }
 
@@ -132,6 +149,7 @@ public class UsersStorage {
     // creating
      public boolean createUser(String username, String password, String accountType, String mobile, Double balance, Double loan) {
 
+        //checking usernames, containsKey is a method of HashMap
         if (users.containsKey(username)) {
             System.out.println("\033[31mUsername already exists!\033[0m");
             return false;
@@ -146,6 +164,14 @@ public class UsersStorage {
         return true;
     }
 
+    public boolean recipientCheck(String recipient){
+        User u = users.get(recipient);
+        if(u!=null){
+            return true;
+        } else {
+            return false;
+        }
+    }
    
 
 }

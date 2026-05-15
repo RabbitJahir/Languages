@@ -8,10 +8,30 @@
   <body>
     <script>
       const product = {
-        name: 'socks',
+        //property = value
+        name: "socks",
         price: 123,
       };
-      console.log(product)
+      //caling
+      console.log(`starting`);
+      console.log(product);
+      console.log(typeof product);
+
+      // dot notation
+      console.log(`product name: ${product.name}`);
+
+      // changing value using properties
+      product.name = `t-shirt`;
+      console.log(product);
+
+      // can add new properties
+      product.newProperty = true;
+      console.log(`with new property: `);
+      console.log(product);
+
+      // can delete too
+      delete product.newProperty;
+      console.log(product);
     </script>
   </body>
 </html>

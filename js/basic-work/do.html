@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="numbers" placeholder="e.g. 10,10,20,1" />
+      <br />
+      <div id="output"></div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+      document.getElementById("submit").onclick = function () {
+        try {
+          let input = document.getElementById("numbers").value;
+          // .map makes the string turn into an array, each element, and runs a loop through each
+          let numbers = input.split(",").map((loop) => Number(loop.trim()));
+
+          //NaN :  Not a Number, .some(does at least one item in the array pass the condition of inside this bracket)
+          if (numbers.some(Number.isNaN)) {
+            throw new Error(`only numbers allowed`);
+          }
+
+          //   console.log(loop[1]);
+          // reduce takes an array and reduces it, does something with it, in here, adds them, 
+          // a starts with value 0.i , b with value i, and i++ after every addition.  
+          let sum = numbers.reduce((a, b) => a + b, 0);
+
+          let even_odd ="";
+          if(sum%2==0){
+            even_odd="even";
+          } else {
+            even_odd="odd";
+          }
+
+          document.getElementById("output").textContent = `${sum} and ${even_odd}`;
+        } catch (e) {
+          document.getElementById("output").textContent = e.message;
+        }
+      };
+    </script>
+  </body>
+</html>

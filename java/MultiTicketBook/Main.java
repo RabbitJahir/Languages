@@ -11,7 +11,6 @@ public class Main{
         
         UI.clearScreen();
 
-
         boolean loop_1 = true;        
         while(loop_1){
            

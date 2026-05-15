@@ -1,11 +1,13 @@
-// pages 
+// importing packages
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Scanner;
 import pages.Pages;
 import ui.UI;
-import users.Login; // locale is used for money showing
+import users.Creating;
+import users.Login;
 import users.UsersStorage;
+import users.Loan;
 
 public class Main {
 
@@ -19,11 +21,13 @@ public class Main {
             // Building objects
             Pages page = new Pages();
             UsersStorage accountCheck = new UsersStorage();
+            Loan loanLogic = new Loan(accountCheck);
             
 
                 // to use lator on, so entire screen knows currentuser
             String currentUser = null;
-
+            String currentAccount = null;
+            double balance = 0;
             //-----------------------------------
             // LOGIN LOOP
             
@@ -33,45 +37,50 @@ public class Main {
                 UI.clearScreen();
                 page.homeScreen(); //calls home screen from pages
 
-                int accountType = sc.nextInt();
+                int homeScreenPage = sc.nextInt();
                 sc.nextLine();
 
                 UI.clearScreen();
 
-                switch (accountType) {
-                    case 1 -> {
-                        page.loginScreen();
-                        currentUser = Login.handleLogin(sc, accountCheck);
-                    }
-                    case 2 -> {
-                        page.createScreen();
-                        System.out.print("Enter username: ");
-                        String username = sc.nextLine();
-
-                        System.out.print("Enter password: ");
-                        String password = sc.nextLine();
-
-                        System.out.print("Enter account type: ");
-                        String type = sc.nextLine();
-
-                        System.out.print("Enter mobile number: ");
-                        String mobile = sc.nextLine();
-
-                        boolean created = accountCheck.createUser(username, password, type, mobile, 0.0, 0.0);
-
-                        if (created) {
-                            accountCheck.saveToFile();  // save to file goes to users storage
-                        }
-
-                        UI.pause(sc);
-                    }
-                    case 3 -> {
+                switch (homeScreenPage) {
+                    case 0->{
                         System.out.print("Logging out...");
+                        System.out.println("\n\n\n\033[32m\033[1mThank you for trusting us!\033[0m");
                         UI.pause(sc);
                         System.exit(0); // ends the system, succesfully. Here 0 means normal/succesfully 
                     }
+                    case 1 -> {
+                        page.loginScreen();         
+                        Login.Account result = Login.handleLogin(sc, accountCheck);
+
+                        if (result != null) {
+                            currentUser = result.currentUser;
+                            currentAccount = result.currentAccount;
+                            balance = accountCheck.balance(currentUser);
+                        }
+                    }
+                    case 2 -> {
+                        page.createScreen();
+                        System.out.print("Select account type: ");
+                        try{
+                            int selectAccountType = sc.nextInt();
+                            sc.nextLine();
+                            if(selectAccountType==1||selectAccountType==2){
+                                Creating.creating(sc,accountCheck, selectAccountType);
+                            }
+                            page.invalidInput();
+                        } catch(Exception e){
+                            page.invalidInput();
+                            UI.pause(sc);
+                        }
+
+                        
+                    }
+                    case 3 -> {
+                        System.out.println("soon");
+                    }
                     default -> {
-                        System.out.println("Invalid option.");
+                        page.invalidInput();
                         UI.pause(sc);
                         continue;
                     }
@@ -107,7 +116,7 @@ public class Main {
                         System.out.println("---------------------------"); 
                         System.out.printf(" Username      :  %s\n", user.username); 
                         System.out.printf(" Phone         :  %s\n", user.mobile); 
-                        System.out.printf(" Account Type  :  %s\n ", user.accountType); 
+                        System.out.printf(" Account Type  :  %s\n ", currentAccount); 
                         System.out.printf("Balance       :  %s\n", money.format(user.balance)); 
                         System.out.printf(" Loan          :  %s\n", user.loan);
                         System.out.println("---------------------------");
@@ -115,96 +124,69 @@ public class Main {
                     }
                     case 2 -> {
                         //balance
-                        double balance = accountCheck.balance(currentUser);
-                        System.out.printf("\n\033[34mCurrent balance :\033[0m %s\n\n", money.format(balance));
+                        page.showBalance(currentUser, accountCheck);
                         UI.pause(sc);
                     }
 
                     case 3 ->{
                         // take Loan
-                        double loan = accountCheck.loan(currentUser);   
-                        System.out.printf("Current loan is: %s\n\n", loan);
-
-                        page.loanRulesScreen();
-
-                        System.out.print("Amount for loan: ");
-                        double newLoan = sc.nextDouble();
-                        sc.nextLine();
-
-                        if(newLoan<0){
-                            System.out.print("\nNegative amount is loan is not acceptable.");
-                            UI.pause(sc);
-                            continue;
-                        } else if(newLoan <100 || newLoan > 50000){
-                            System.out.print("\nLoan amount must be between $100 and $50,000.");
-                            UI.pause(sc);
-                            continue;
-                        } else{
-                            System.out.print("\nTotal duration to repay the loan in months(3, 6, 12, 24): ");
-                            int timeLoan = sc.nextInt();
-                            sc.nextLine();
-
-                                if(timeLoan == 3 || timeLoan == 6 || timeLoan == 12 || timeLoan == 24){
-                                    double addLoan = accountCheck.loan(currentUser);
-                                    newLoan+=addLoan;
-                                    accountCheck.updateLoan(currentUser, newLoan);
-                                    accountCheck.saveToFile();
-                                    System.out.println("Succesfully loan given.");
-                                } else {
-                                    System.out.print("\nPlese choose from the given range (3, 6, 12, 24).");
-                                }
-                        }
+                        double loan = accountCheck.loan(currentUser);
+                        page.showLoan(currentUser, accountCheck);
                         
-                        double loanCheck = accountCheck.loan(currentUser);
-                        System.out.printf("\nCurrent loan : %s\n\n", money.format(loanCheck));
+                        if(loan!=0){
+                            System.out.println("\033[1m\033[31mPay previous loan first!");
+                           
+                        } else {
+
+                            if(currentAccount.equals("personal")){
+
+                                loanLogic.takingLoan(sc, currentUser, currentAccount);
+
+                            } else if(currentAccount.equals("saving")){
+
+                                loanLogic.takingLoan(sc, currentUser, currentAccount);
+                            }
+                        
+                    }
                         UI.pause(sc);
                     }
 
                     case 4 ->{
                         // repay loan
-                        double loan = accountCheck.loan(currentUser);
 
-                        System.out.printf("Total loan: %s\n", money.format(loan));
-
-                        System.out.print("\n\nAmount repaying: ");
-                        double repayLoan = sc.nextDouble();
-                        sc.nextLine();
-                        
-                        if(repayLoan<0){
-                            System.out.println("Can not repay loan in negative");
-                        }
-                        else{
-                            double minusLoan = accountCheck.loan(currentUser);
-                            minusLoan-=repayLoan;
-                            accountCheck.updateLoan(currentUser, minusLoan);
-                            accountCheck.saveToFile();
-                            System.out.println("Loan repayed.");    
-                        }
-                        double loanCheck = accountCheck.loan(currentUser);
-                        System.out.printf("\nCurrent loan : %s\n\n", money.format(loanCheck));
-                        UI.pause(sc);
+                        loanLogic.repayingLoan(sc, currentUser);
+                       
                     }
 
                     case 5 -> {
                         //withdraw
-                        double balance = accountCheck.balance(currentUser);
-                        System.out.printf("\033[1mCurrent balance :\033[0m %s\n\n", money.format(balance));
+                        page.showBalance(currentUser, accountCheck);
+                        System.out.println("\033[1mEnter 0 to go back.\033[0m\n\n");
 
                         System.out.print("Give an amount to withdraw: ");
-                        double withdraw = sc.nextDouble();
-                        sc.nextLine();
+                        
+                        try{
+                            double withdraw = sc.nextDouble();
+                            sc.nextLine();
 
-                        if (withdraw >= balance ) {
-                            System.out.println("\n\n\033[1m\033[31mCannot withdraw more than balance \033[0m");
-                        } else if (withdraw < 0) {
-                            System.out.println("\n\n\033[1m\033[31mCannot withdraw negative amount.\033[0m");
-                        } else if(balance - withdraw < 100){
-                            System.out.println("\n\n\033[1m\033[31mCannot withdraw everything\033[0m \033[1m(keep minimum $100).\033[0m");
-                        } else{
-                            balance -= withdraw;
-                            accountCheck.updateBalance(currentUser, balance);
-                            accountCheck.saveToFile();
+                             if (withdraw >= balance ) {
+                            System.out.println("\n\n\033[1m\033[31mInsufficient balance.\033[0m");
+                            } else if(withdraw==0){
+                            break;
+                            } else if (withdraw < 0) {
+                                page.invalidInput();
+                            } else if(balance - withdraw < 100){
+                                System.out.println("\n\n\033[1m\033[31mCannot withdraw everything\033[0m \033[1m(keep minimum $100).\033[0m");
+                            } else{
+                                balance -= withdraw;
+                                accountCheck.updateBalance(currentUser, balance);
+                                accountCheck.saveToFile();
+                            }
+                        } catch(Exception e){
+                            page.invalidInput();
+                            sc.nextLine(); // catches the lingering exception
                         }
+                       
 
                         System.out.printf("\nCurrent balance is: %s\n", money.format(balance));
                         UI.pause(sc);
@@ -212,19 +194,26 @@ public class Main {
 
                     case 6 -> {
                         //deposit
-                        double balance = accountCheck.balance(currentUser);
-                        System.out.printf("Current balance is: %s\n\n", money.format(balance));
+                        page.showBalance(currentUser, accountCheck);
+                        System.out.println("\033[1mEnter 0 to go back.\033[0m\n\n");
 
                         System.out.print("Give an amount to deposit: ");
+                       try {
                         double deposit = sc.nextDouble();
                         sc.nextLine();
-
                         if (deposit < 0) {
-                            System.out.println("Cannot deposit negative amount.");
+                            System.out.println("\033[1m\033[31mCannot deposit negative amount.\033[0m");
+                        } else if(deposit==0){
+                            break;
                         } else {
                             balance += deposit;
                             accountCheck.updateBalance(currentUser, balance);
                             accountCheck.saveToFile();
+                        }
+
+                        } catch (Exception e) {
+                            page.invalidInput();
+                            sc.nextLine(); // catches thel ingering exception to prevent from going into UI.pause
                         }
 
                         System.out.printf("\nCurrent balance is: %s\n", money.format(balance));
@@ -233,7 +222,56 @@ public class Main {
 
                     case 7 -> {
                         //transfer
-                        System.out.println("Transfer feature coming soon...");
+                        System.out.printf("Current balance is: %s\n\n", money.format(balance));
+                        System.out.println("\033[1mEnter \"back\" to go back.\033[0m");
+
+                        while(true){
+                            System.out.print("Enter username of the recipient: ");
+                            
+                            String recipient = sc.nextLine();
+
+                            if(recipient.isEmpty()){
+                                System.out.println("\033[1m\033[31mUsername can not be empty.\033[0m");
+                            } else if(recipient.equals("back")){
+                            break;
+                            } else{
+                                
+                                if(accountCheck.recipientCheck(recipient) == true){
+                                    System.out.println("\033[1m\033[32mUser found!\033[0m");
+
+                                
+                                    try{
+                                        System.out.print("Enter amount to transfer: ");
+                                        Double payRecipient = sc.nextDouble();
+                                        sc.nextLine();
+                                        if (payRecipient>balance) {
+                                            System.out.println("\033[1m\033[33mInsufficient balance.\033[0m");
+                                        } else {
+                                            balance -= payRecipient;
+                                        accountCheck.updateBalance(currentUser, balance);
+                                        
+                                        payRecipient += accountCheck.balance(recipient);
+                                        accountCheck.updateBalance(recipient, payRecipient);
+                                        accountCheck.saveToFile();
+                                        }
+                                        
+                                    } catch(Exception e) {
+                                        page.invalidInput();
+                                        sc.nextLine(); // catches thel ingering exception to prevent from going into UI.pause
+                                    }
+                                    
+                                    break;
+                                } else {
+                                    System.out.println("\033[1m\033[31mUser not found\033[0m");
+                                    
+                                    break;
+                                }
+                            }
+
+                        }
+                        double balanceRecheck = accountCheck.balance(currentUser);
+                        System.out.printf("\nCurrent balance is: %s\n", money.format(balanceRecheck));
+
                         UI.pause(sc);
                     }
 

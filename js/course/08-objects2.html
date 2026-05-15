@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const product = {
+        name: "shirt",
+        ["starting-price"]: 200,
+      };
+
+      console.log(product);
+
+      console.log(`product name: ${product["name"]}`);
+
+      // without bracket notation, the dash(-) can not be used,
+      // properties that dont work with dot works with bracket
+      console.log(`starting time: ${product["starting-price"]}`);
+    </script>
+  </body>
+</html>
