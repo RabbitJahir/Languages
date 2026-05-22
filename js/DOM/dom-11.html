@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkbox Counter</title>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <button id="submitBtn" onclick="count()">Submit</button>
+
+    <p id="result"></p>
+
+    <script>
+      const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+
+      letters.forEach((letter) => {
+        document.getElementById("container").innerHTML += `
+          <label>
+            <input type="checkbox">
+            ${letter}
+          </label>
+          <br>
+        `;
+      });
+
+      function count() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        let checkedCount = 0;
+
+        checkboxes.forEach((box) => {
+          if (box.checked) {
+            checkedCount++;
+          }
+        });
+
+        document.getElementById("result").innerHTML =
+          `Present: ${checkedCount}<br>
+           Absent: ${letters.length - checkedCount}`;
+      }
+    </script>
+  </body>
+</html>

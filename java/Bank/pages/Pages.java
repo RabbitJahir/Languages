@@ -43,8 +43,13 @@ public class Pages {
         System.out.println("1. Personal account: ");
         System.out.println("- $ 500 initial deposit.\n");
         System.out.println("2. Savings account: ");
-        System.out.println("1. No initial deposit.\n");
+        System.out.println("- No initial deposit.\n");
+    }
 
+    public static void changePassword(){
+        System.out.println("-----------------------------");
+        System.out.println("  CHANGING PASSWORD");
+        System.out.println("-----------------------------");
     }
 
     // loan screen

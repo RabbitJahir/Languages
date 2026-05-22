@@ -1,7 +1,6 @@
-let users = [ "one", "two", "three", "four", "five"]
+let users = ["one", "two", "three", "four", "five"];
 
 console.log(users.length);
-
 
 // simple loop
 for (let i = 0; i < users.length; i++) {
@@ -9,9 +8,9 @@ for (let i = 0; i < users.length; i++) {
 }
 
 // advanced loop
-users.forEach(user => {
+users.forEach((user) => {
   console.log(user);
 });
 
 //arrow function
-users.forEach(u => console.log(`advanced array :${u}`));
+users.forEach((u) => console.log("advanced array :${u}"));

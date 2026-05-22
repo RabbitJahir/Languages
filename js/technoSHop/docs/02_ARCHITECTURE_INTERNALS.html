@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood God's Vault - Architecture & Internals</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Crimson Pro", Georgia, serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f9f9f9;
+        padding: 20px;
+      }
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 60px 50px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+      @media print {
+        .container {
+          box-shadow: none;
+        }
+      }
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 3em;
+        color: #8b0000;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 1.2em;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #8b0000;
+        padding-bottom: 20px;
+      }
+      h2 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.8em;
+        color: #8b0000;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        border-left: 4px solid #8b0000;
+        padding-left: 15px;
+      }
+      h3 {
+        font-size: 1.3em;
+        color: #555;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      h4 {
+        font-size: 1.1em;
+        color: #666;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+      p {
+        margin-bottom: 12px;
+        text-align: justify;
+      }
+      code {
+        background: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+        color: #8b0000;
+      }
+      .code-block {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+        line-height: 1.4;
+      }
+      .file-section {
+        background: #f5f5f5;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        border-left: 4px solid #8b0000;
+      }
+      .flow-diagram {
+        background: #f9f9f9;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+        font-family: monospace;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th {
+        background: #8b0000;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+      }
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ddd;
+      }
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+      .highlight {
+        background: #fffacd;
+        padding: 15px;
+        border-left: 4px solid #ffd700;
+        margin: 15px 0;
+        border-radius: 3px;
+      }
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px solid #8b0000;
+        text-align: center;
+        color: #666;
+        font-size: 0.95em;
+      }
+      ul,
+      ol {
+        margin-left: 20px;
+        margin-bottom: 15px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>⚔ Blood God's Vault</h1>
+      <div class="subtitle">ARCHITECTURE & INTERNAL WORKINGS</div>
+
+      <h2>🏗️ Project File Structure</h2>
+      <div class="code-block">
+        technoshop/ ├── index.html # User shop interface ├── login.html #
+        Login/authentication page ├── admin.html # Admin dashboard │ ├──
+        login.js # Authentication logic ├── user.js # Shop interface logic ├──
+        admin.js # Admin dashboard logic ├── shared.js # Shared utilities (KEY
+        FILE) ├── main.js # Legacy shop implementation │ ├── style.css # Global
+        styles └── style/ ├── index.css # User shop styles ├── login.css # Login
+        page styles └── admin.css # Admin dashboard styles
+      </div>
+
+      <h2>📋 File-by-File Breakdown</h2>
+
+      <div class="file-section">
+        <h3>shared.js - Core Utility Module</h3>
+        <p>
+          <strong>Purpose:</strong> Central hub for all shared functions used
+          across the application.
+        </p>
+        <h4>Key Data Structures:</h4>
+        <ul>
+          <li>
+            <code>DEFAULT_ITEMS</code> - Initial inventory array with 4 relics
+          </li>
+          <li>
+            <code>USERS</code> (defined in login.js) - Hardcoded user
+            credentials
+          </li>
+        </ul>
+        <h4>Core Functions:</h4>
+        <p><strong>Authentication & Sessions:</strong></p>
+        <ul>
+          <li>
+            <code>getSession()</code> - Retrieves current user session from
+            localStorage
+          </li>
+          <li>
+            <code>requireAuth(role)</code> - Security check; redirects if not
+            authenticated
+          </li>
+          <li><code>logout()</code> - Clears session and redirects to login</li>
+        </ul>
+        <p><strong>Item Management:</strong></p>
+        <ul>
+          <li>
+            <code>getItems()</code> - Retrieves shop inventory from localStorage
+          </li>
+          <li>
+            <code>saveItems(items)</code> - Persists inventory changes to
+            localStorage
+          </li>
+        </ul>
+        <p><strong>Cart Operations:</strong></p>
+        <ul>
+          <li>
+            <code>getCart()</code> - Retrieves user's current shopping cart
+          </li>
+          <li>
+            <code>saveCart(cart)</code> - Saves cart contents to localStorage
+          </li>
+        </ul>
+        <p><strong>Order Management:</strong></p>
+        <ul>
+          <li>
+            <code>getOrders()</code> - Retrieves user's completed purchases
+          </li>
+          <li>
+            <code>saveOrders(orders)</code> - Saves purchase history to
+            localStorage
+          </li>
+        </ul>
+        <p><strong>Utilities:</strong></p>
+        <ul>
+          <li>
+            <code>formatPrice(p)</code> - Formats numbers as USD currency (e.g.,
+            "1,000")
+          </li>
+        </ul>
+      </div>
+
+      <div class="file-section">
+        <h3>login.js - Authentication Module</h3>
+        <p>
+          <strong>Purpose:</strong> Handles user login and credential
+          validation.
+        </p>
+        <h4>Execution Flow:</h4>
+        <ol>
+          <li>
+            IIFE (Immediately Invoked Function Expression) checks for existing
+            session on page load
+          </li>
+          <li>
+            If session exists, auto-redirects to appropriate page (admin.html or
+            index.html)
+          </li>
+          <li>
+            Form submission event listener validates credentials against USERS
+            object
+          </li>
+          <li>
+            On success: Creates session object and redirects based on role
+          </li>
+          <li>On failure: Displays error message and clears form</li>
+        </ol>
+        <h4>Hardcoded Credentials:</h4>
+        <table>
+          <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
+          </tr>
+          <tr>
+            <td>rabbit</td>
+            <td>rabbit</td>
+            <td>admin</td>
+          </tr>
+          <tr>
+            <td>username</td>
+            <td>password</td>
+            <td>user</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="file-section">
+        <h3>user.js - Shop Interface Module</h3>
+        <p>
+          <strong>Purpose:</strong> Manages the user shopping experience -
+          rendering items, cart operations, and purchases.
+        </p>
+        <h4>Initialization:</h4>
+        <ul>
+          <li>
+            <code>requireAuth("user")</code> ensures only authenticated users
+            can access
+          </li>
+          <li>
+            <code>init()</code> function sets up event listeners and renders
+            initial state
+          </li>
+          <li>Modal event delegation for cart interface</li>
+        </ul>
+        <h4>Core Functions:</h4>
+        <p><strong>Rendering:</strong></p>
+        <ul>
+          <li>
+            <code>renderShop()</code> - Generates product cards with stock
+            status, pricing, and cart controls
+          </li>
+          <li>Shows "SOLD OUT" overlay when quantity ≤ 0</li>
+          <li>Displays in-cart badges showing current quantity</li>
+        </ul>
+        <p><strong>Shopping Cart:</strong></p>
+        <ul>
+          <li>
+            <code>changeCart(id, delta)</code> - Adds/removes items from cart
+            (delta = ±1)
+          </li>
+          <li>
+            <code>updateCartCount()</code> - Updates cart badge with total items
+            + orders
+          </li>
+          <li>
+            <code>openCart()</code> - Displays modal with cart items and
+            purchase history
+          </li>
+          <li><code>closeCart()</code> - Closes cart modal</li>
+        </ul>
+        <p><strong>Pricing:</strong></p>
+        <ul>
+          <li>
+            <code>incrementPrice(id)</code> - Increases item price by $50 and
+            saves
+          </li>
+          <li>Includes "bumped" animation on price update</li>
+        </ul>
+        <p><strong>Event Handling:</strong></p>
+        <ul>
+          <li>
+            <code>handleShopClick(e)</code> - Delegated event handler for all
+            shop buttons
+          </li>
+          <li>Routes clicks to appropriate function based on button class</li>
+        </ul>
+      </div>
+
+      <div class="file-section">
+        <h3>admin.js - Admin Dashboard Module</h3>
+        <p>
+          <strong>Purpose:</strong> Provides admin interface for managing prices
+          and inventory quantities.
+        </p>
+        <h4>Initialization:</h4>
+        <ul>
+          <li>
+            <code>requireAuth("admin")</code> restricts access to admin users
+            only
+          </li>
+          <li>
+            <code>renderAdmin()</code> populates all item cards on page load
+          </li>
+        </ul>
+        <h4>Core Functions:</h4>
+        <p><strong>Rendering:</strong></p>
+        <ul>
+          <li>
+            <code>renderAdmin()</code> - Creates editable form cards for each
+            item with:
+          </li>
+          <li>Image display with badge</li>
+          <li>Number inputs for price (step: 50) and quantity</li>
+          <li>Save button to persist changes</li>
+        </ul>
+        <p><strong>Data Persistence:</strong></p>
+        <ul>
+          <li>
+            <code>saveItem(id)</code> - Saves price and quantity updates to
+            localStorage
+          </li>
+          <li>Validates input values are non-negative numbers</li>
+          <li>Updates visual stock display</li>
+          <li>Shows success toast notification</li>
+        </ul>
+        <p><strong>Notifications:</strong></p>
+        <ul>
+          <li>
+            <code>showToast(message)</code> - Displays temporary success
+            notification
+          </li>
+          <li>Auto-hides after 2 seconds</li>
+        </ul>
+      </div>
+
+      <h2>🔄 Application Flow Diagram</h2>
+      <div class="flow-diagram">
+        <strong>User Login Flow</strong><br /><br />
+        User Opens Page → Checks Session → No Session?<br />↓<br />
+        Shows Login Form → User Enters Credentials → Validates Against USERS<br />↓<br />
+        Valid? → Creates Session → Redirects to Appropriate Page<br />↓<br />
+        Invalid? → Shows Error Message
+      </div>
+
+      <div class="flow-diagram">
+        <strong>User Shop Flow</strong><br /><br />
+        User Loads index.html → requireAuth("user") Check → Load Shop<br />↓<br />
+        renderShop() → Loads Items from localStorage → Displays Grid<br />↓<br />
+        User Clicks Button → handleShopClick() Routes to Function<br />↓<br />
+        incrementPrice(), changeCart() → Updates localStorage → Re-renders UI
+      </div>
+
+      <div class="flow-diagram">
+        <strong>Admin Dashboard Flow</strong><br /><br />
+        Admin Loads admin.html → requireAuth("admin") Check → Load Dashboard<br />↓<br />
+        renderAdmin() → Loads Items → Creates Editable Cards<br />↓<br />
+        Admin Changes Prices/Qty → Clicks Save → saveItem(id)<br />↓<br />
+        Updates localStorage → Shows Toast Notification
+      </div>
+
+      <h2>💾 localStorage Structure</h2>
+      <p>The application uses four localStorage keys to persist data:</p>
+      <table>
+        <tr>
+          <th>Key</th>
+          <th>Data Type</th>
+          <th>Purpose</th>
+          <th>Format</th>
+        </tr>
+        <tr>
+          <td><code>shop_items</code></td>
+          <td>Array of Objects</td>
+          <td>Current inventory with prices and quantities</td>
+          <td>JSON array: [{id, name, price, quantity, ...}]</td>
+        </tr>
+        <tr>
+          <td><code>cart</code></td>
+          <td>Array of Objects</td>
+          <td>User's current shopping cart</td>
+          <td>JSON array: [{id, qty, name, img}]</td>
+        </tr>
+        <tr>
+          <td><code>orders</code></td>
+          <td>Array of Objects</td>
+          <td>User's purchase history</td>
+          <td>JSON array: [{id, qty, name, img, price}]</td>
+        </tr>
+        <tr>
+          <td><code>session</code></td>
+          <td>Object</td>
+          <td>Current user authentication info</td>
+          <td>JSON object: {username, role}</td>
+        </tr>
+      </table>
+
+      <h2>🔐 Security Architecture</h2>
+      <h4>Authentication Mechanism:</h4>
+      <ul>
+        <li>
+          Credentials hardcoded in JavaScript (SECURITY WARNING: Not suitable
+          for production)
+        </li>
+        <li>
+          Session stored as JSON in localStorage (accessible to JavaScript only)
+        </li>
+        <li>
+          <code>requireAuth()</code> function acts as gatekeeper for protected
+          pages
+        </li>
+      </ul>
+      <h4>Authorization:</h4>
+      <ul>
+        <li>Role-based access control (RBAC): "admin" vs "user"</li>
+        <li>Admin page checks for admin role; redirects non-admin users</li>
+        <li>User page checks for user role; redirects non-user users</li>
+      </ul>
+
+      <div class="highlight">
+        <strong>⚠️ Security Note:</strong> This is a front-end demonstration. In
+        production, credentials should be validated on a secure backend server,
+        not hardcoded in JavaScript. All sensitive operations should involve
+        server-side verification.
+      </div>
+
+      <h2>🎯 Entry Points</h2>
+      <h4>Login Page (login.html)</h4>
+      <ul>
+        <li>
+          <strong>First Point:</strong> Public landing page accessible to anyone
+        </li>
+        <li>
+          <strong>Auto-redirect:</strong> Existing sessions auto-redirect to
+          appropriate page
+        </li>
+        <li>
+          <strong>Script Load:</strong> Only login.js is loaded (smallest
+          initial payload)
+        </li>
+      </ul>
+      <h4>User Shop (index.html)</h4>
+      <ul>
+        <li>
+          <strong>Protected:</strong> Requires authentication with "user" role
+        </li>
+        <li>
+          <strong>Scripts:</strong> Loads shared.js first (utilities), then
+          user.js (shop logic)
+        </li>
+        <li>
+          <strong>Initialization:</strong> init() function called after auth
+          check
+        </li>
+      </ul>
+      <h4>Admin Dashboard (admin.html)</h4>
+      <ul>
+        <li>
+          <strong>Protected:</strong> Requires authentication with "admin" role
+        </li>
+        <li><strong>Scripts:</strong> Loads shared.js first, then admin.js</li>
+        <li>
+          <strong>Initialization:</strong> renderAdmin() called after auth check
+        </li>
+      </ul>
+
+      <h2>🔗 Function Call Chain Examples</h2>
+      <h4>Example 1: User Adds Item to Cart</h4>
+      <div class="code-block">
+        User clicks "Add to Cart" button ↓ handleShopClick() triggered ↓
+        changeCart(id, 1) called ↓ getCart() → getItems() → Validates stock ↓
+        Updates cart entry (qty++) or creates new entry ↓ saveCart(cart) →
+        Persists to localStorage ↓ updateCartCount() → Refreshes badge ↓
+        renderShop() → Re-renders with updated cart indicators
+      </div>
+
+      <h4>Example 2: Admin Updates Price</h4>
+      <div class="code-block">
+        Admin enters new price in input field ↓ Admin clicks "Save" button ↓
+        saveItem(id) triggered ↓ getItems() → Finds specific item ↓ Updates
+        item.price with new value ↓ saveItems(items) → Persists to localStorage
+        ↓ showToast() → Success notification
+      </div>
+
+      <div class="footer">
+        <p><strong>Blood God's Vault</strong> © 2024</p>
+        <p>Document 2 of 3: Architecture & Internal Workings</p>
+        <p><em>Print this document to PDF for offline reference</em></p>
+      </div>
+    </div>
+  </body>
+</html>

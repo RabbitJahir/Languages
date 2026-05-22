@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- 
+  Blood God's Vault - Login Page
+  This is the authentication/login page. Users enter credentials to access either the admin panel or the user shop.
+  Credentials stored in login.js: Admin (rabbit/rabbit), User (username/password)
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login – Blood God's Vault</title>
+    <!-- Link to login-specific styling -->
+    <link rel="stylesheet" href="style/login.css" />
+    <!-- Custom Google Fonts: Cinzel Decorative for headings, Crimson Pro for body text -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="login-body">
+    <!-- Tricolor background stripes: Decorative background element (French flag colors) -->
+    <div class="login-bg" aria-hidden="true">
+      <div class="stripe s-red"></div>
+      <div class="stripe s-blue"></div>
+      <div class="stripe s-yellow"></div>
+      <!-- Overlay to darken the stripes for better text contrast -->
+      <div class="stripe-overlay"></div>
+    </div>
+
+    <!-- Login container wrapper -->
+    <div class="login-wrap">
+      <!-- Login card: Contains form and branding -->
+      <div class="login-card">
+        <!-- Brand icon/sword emoji -->
+        <div class="login-icon">⚔</div>
+        <!-- Site title -->
+        <h1 class="login-title">Blood God's Vault</h1>
+
+        <!-- Login form: Submits username/password for authentication -->
+        <form id="loginForm" novalidate>
+          <!-- Username input field -->
+          <div class="field-group">
+            <label for="uname">Username</label>
+            <input
+              type="text"
+              id="uname"
+              placeholder="Enter username"
+              autocomplete="username"
+              required
+            />
+          </div>
+          <!-- Password input field -->
+          <div class="field-group">
+            <label for="pass">Password</label>
+            <input
+              type="password"
+              id="pass"
+              placeholder="Enter password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <!-- Error message display area (shown on failed login) -->
+          <p class="login-error" id="loginError"></p>
+          <!-- Submit button -->
+          <button type="submit" class="btn-login">Enter the Vault</button>
+        </form>
+
+        <!-- Login hints: Sample credentials for testing -->
+        <p class="login-hint">
+          Admin: <code>rabbit / rabbit</code> &nbsp;·&nbsp; User:
+          <code>username / password</code>
+        </p>
+      </div>
+    </div>
+
+    <!-- JavaScript file: login.js handles form validation and authentication -->
+    <script src="login.js"></script>
+  </body>
+</html>

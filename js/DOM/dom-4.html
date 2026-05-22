@@ -9,6 +9,7 @@
 
     <input id="name" placeholder="Enter name" />
     <button onclick="show()">Submit</button>
+    <div id="nameShow"></div>
 
     <script>
       function show() {
@@ -16,6 +17,7 @@
         let value = document.getElementById("name").value;
         // shows in console, ctrl+shit+i
         console.log(value);
+        document.getElementById("nameShow").innerHTML=value;
       }
     </script>
   </body>

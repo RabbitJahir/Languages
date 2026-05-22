@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- 
+  Blood God's Vault - User Shop Page
+  This is the main shopping interface where users can browse items, add to cart, and view their purchases.
+  Users must be authenticated to access this page.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood God's Vault</title>
+    <!-- Link to the main user shop styling -->
+    <link rel="stylesheet" href="style/index.css" />
+    <!-- Bootstrap Icons for UI elements like cart and logout icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <!-- Custom Google Fonts: Cinzel Decorative for headings, Crimson Pro for body text -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar: Brand logo, session info, cart button, and logout -->
+    <nav class="navbar">
+      <div class="brand">
+        <!-- Brand icon and site name -->
+        <span class="brand-icon">⚔</span>
+        <div class="brand-text">
+          <h1>Blood God's Vault</h1>
+          <!-- Session label will be populated by user.js with "Welcome, [username]" -->
+          <span class="brand-sub" id="sessionLabel"></span>
+        </div>
+      </div>
+      <div class="nav-right">
+        <!-- Cart button shows the total number of items in cart and completed orders -->
+        <button class="cart-btn" onclick="openCart()">
+          <i class="bi bi-bag"></i>
+          <!-- Cart count badge that updates dynamically -->
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <!-- Logout button - clears session and redirects to login page -->
+        <button class="btn-logout" onclick="logout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Section: Welcome message and brand tagline -->
+    <header class="hero">
+      <p class="hero-eyebrow">Limited Relics • Authenticated by Technodad</p>
+      <h2 class="hero-title">Artifacts of Legend</h2>
+      <p class="hero-desc">
+        Own a piece of history from the greatest Minecraft player of all time.
+      </p>
+    </header>
+
+    <!-- Main content area: Shop grid will be populated by user.js -->
+    <main>
+      <!-- Shop container: Individual product cards are generated via JavaScript -->
+      <div class="shop" id="shop"></div>
+    </main>
+
+    <!-- Footer with copyright and dedication -->
+    <footer class="footer">
+      <p>Technoblade Never Dies &nbsp;•&nbsp; Blood God's Vault &copy; 2024</p>
+    </footer>
+
+    <!-- Cart Modal: Shows items in cart and completed purchases. Populated by user.js -->
+    <div class="modal-overlay" id="cartModal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2><i class="bi bi-bag"></i> Your Cart</h2>
+          <!-- Close button: clicking outside modal also closes it -->
+          <button class="modal-close" id="modalClose">✕</button>
+        </div>
+        <!-- Cart contents will be populated by openCart() function in user.js -->
+        <div class="modal-body" id="cartBody"></div>
+      </div>
+    </div>
+
+    <!-- Notification toast: Displays temporary purchase success messages -->
+    <div class="notif" id="notif"></div>
+
+    <!-- JavaScript files: executed in order, must load shared.js first for shared functions -->
+    <!-- shared.js: Contains shared utility functions for all pages (auth, cart, storage) -->
+    <script src="shared.js"></script>
+    <!-- user.js: Contains user shop logic (render shop, cart operations, purchase) -->
+    <script src="user.js"></script>
+  </body>
+</html>

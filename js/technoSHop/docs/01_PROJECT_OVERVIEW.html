@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood God's Vault - Project Overview</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Crimson Pro", Georgia, serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f9f9f9;
+        padding: 20px;
+      }
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 60px 50px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+      @media print {
+        .container {
+          box-shadow: none;
+        }
+      }
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 3em;
+        color: #8b0000;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 1.2em;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #8b0000;
+        padding-bottom: 20px;
+      }
+      h2 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.8em;
+        color: #8b0000;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        border-left: 4px solid #8b0000;
+        padding-left: 15px;
+      }
+      h3 {
+        font-size: 1.3em;
+        color: #555;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      p {
+        margin-bottom: 12px;
+        text-align: justify;
+      }
+      .highlight {
+        background: #fffacd;
+        padding: 20px;
+        border-left: 4px solid #ffd700;
+        margin: 20px 0;
+        border-radius: 3px;
+      }
+      .feature-list {
+        list-style: none;
+        margin: 15px 0;
+      }
+      .feature-list li {
+        padding: 8px 0;
+        padding-left: 30px;
+        position: relative;
+      }
+      .feature-list li:before {
+        content: "⚔";
+        position: absolute;
+        left: 0;
+        color: #8b0000;
+        font-weight: bold;
+      }
+      .box {
+        background: #f5f5f5;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th {
+        background: #8b0000;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+      }
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ddd;
+      }
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px solid #8b0000;
+        text-align: center;
+        color: #666;
+        font-size: 0.95em;
+      }
+      .icon {
+        font-size: 1.5em;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>⚔ Blood God's Vault</h1>
+      <div class="subtitle">PROJECT OVERVIEW & CONTENT</div>
+
+      <h2>📖 Project Description</h2>
+      <p>
+        Blood God's Vault is a
+        <strong>Technoblade-themed e-commerce web application</strong> designed
+        for browsing, purchasing, and managing limited edition relics and
+        artifacts. The application features a clean, medieval-inspired interface
+        and supports two distinct user roles: regular shoppers (users) and
+        administrators.
+      </p>
+      <p>
+        The project is built entirely with
+        <strong>vanilla JavaScript, HTML, and CSS</strong> - no frameworks or
+        external libraries beyond styling resources and icons. All data is
+        stored locally in the browser using the
+        <strong>localStorage API</strong>.
+      </p>
+
+      <h2>🎯 Purpose & Target Users</h2>
+      <div class="highlight">
+        <strong>Purpose:</strong> To create an immersive shopping experience for
+        fans of the legendary Minecraft player Technoblade, featuring
+        authenticated relics and battle-worn artifacts.
+      </div>
+      <p><strong>Target Users:</strong></p>
+      <ul class="feature-list">
+        <li>Regular Users: Browse and "purchase" legendary artifacts</li>
+        <li>Administrators: Manage inventory, prices, and stock levels</li>
+      </ul>
+
+      <h2>🏗️ Application Structure</h2>
+      <p>
+        The application consists of three main pages accessible through
+        different entry points:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Purpose</th>
+            <th>Access Level</th>
+            <th>Key Features</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Login Page</strong><br />(login.html)</td>
+            <td>User Authentication</td>
+            <td>Public</td>
+            <td>Credential validation, session creation, role-based routing</td>
+          </tr>
+          <tr>
+            <td><strong>User Shop</strong><br />(index.html)</td>
+            <td>Shopping Interface</td>
+            <td>Authenticated Users</td>
+            <td>Browse items, add to cart, view purchases, price tracking</td>
+          </tr>
+          <tr>
+            <td><strong>Admin Dashboard</strong><br />(admin.html)</td>
+            <td>Inventory Management</td>
+            <td>Admin Only</td>
+            <td>Update prices, manage stock quantities, save changes</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>🛍️ Featured Artifacts</h2>
+      <p>
+        The vault contains four legendary items, each with unique authentication
+        badges:
+      </p>
+      <ul class="feature-list">
+        <li>
+          <strong>Crown of the Blood God</strong> - Authenticated Relic ($1,000
+          - 10 in stock)
+        </li>
+        <li>
+          <strong>Cape of the Blood God</strong> - Battle-Worn ($1,000 - 5 in
+          stock)
+        </li>
+        <li>
+          <strong>Sword of Legends</strong> - Limited Edition ($1,000 - 3 in
+          stock)
+        </li>
+        <li>
+          <strong>Potato of Power</strong> - Ultra Rare ($1,000 - 1 in stock)
+        </li>
+      </ul>
+
+      <h2>👥 User Roles & Permissions</h2>
+      <div class="box">
+        <h3>Regular User Role</h3>
+        <ul class="feature-list">
+          <li>Browse all items in the shop</li>
+          <li>Add items to shopping cart</li>
+          <li>View cart contents and purchase history</li>
+          <li>See real-time inventory availability</li>
+          <li>View dynamic pricing updates</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Admin Role</h3>
+        <ul class="feature-list">
+          <li>Access dedicated admin dashboard</li>
+          <li>Modify item prices in $50 increments</li>
+          <li>Adjust inventory quantities</li>
+          <li>Save changes with immediate effect</li>
+          <li>Monitor all managed items through editable cards</li>
+        </ul>
+      </div>
+
+      <h2>📋 Default Login Credentials</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Access</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>rabbit</td>
+            <td>rabbit</td>
+            <td>Admin</td>
+            <td>admin.html (Admin Dashboard)</td>
+          </tr>
+          <tr>
+            <td>username</td>
+            <td>password</td>
+            <td>User</td>
+            <td>index.html (User Shop)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>🎨 Design Theme</h2>
+      <p>
+        The application embraces a
+        <strong>medieval fantasy aesthetic</strong> with the following design
+        elements:
+      </p>
+      <ul class="feature-list">
+        <li>
+          <strong>Color Scheme:</strong> Deep reds, blacks, and gold accents
+        </li>
+        <li>
+          <strong>Typography:</strong> Cinzel Decorative for headings, Crimson
+          Pro for body text
+        </li>
+        <li>
+          <strong>Icons:</strong> Bootstrap Icons for UI elements (cart, logout,
+          inventory)
+        </li>
+        <li><strong>Imagery:</strong> Technoblade-themed artwork and relics</li>
+        <li>
+          <strong>Branding:</strong> "Technoblade Never Dies" dedication in
+          footer
+        </li>
+      </ul>
+
+      <h2>✨ Key Features</h2>
+      <ul class="feature-list">
+        <li>Session-based authentication with role separation</li>
+        <li>Dynamic shopping cart with quantity management</li>
+        <li>Real-time inventory tracking (sold-out indicators)</li>
+        <li>Price increment system (+$50 per click)</li>
+        <li>Purchase history tracking ("Purchased & Received" section)</li>
+        <li>Toast notifications for admin actions</li>
+        <li>Responsive design with modal cart interface</li>
+        <li>Auto-redirect based on authentication status</li>
+        <li>Local persistence across browser sessions</li>
+      </ul>
+
+      <h2>📱 Responsive Design</h2>
+      <p>
+        The application is designed to work seamlessly across devices with
+        viewport-aware styling. Mobile users can access all features with
+        touch-friendly buttons and appropriately sized interactive elements.
+      </p>
+
+      <div class="highlight">
+        <strong>Note:</strong> This is a static front-end demonstration. The
+        "purchase" feature does not process real transactions—it simulates
+        purchases using local storage. In a production environment, a backend
+        server and payment gateway would be required.
+      </div>
+
+      <div class="footer">
+        <p><strong>Blood God's Vault</strong> © 2024</p>
+        <p>Technoblade Never Dies</p>
+        <p><em>Print this document to PDF for offline reference</em></p>
+      </div>
+    </div>
+  </body>
+</html>

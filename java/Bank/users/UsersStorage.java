@@ -2,6 +2,7 @@ package users;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class UsersStorage {
 
@@ -122,7 +123,7 @@ public class UsersStorage {
     //LOAnnnn
      public double loan(String currentUser){
         User u = users.get(currentUser);
-        return u.loan;
+        return (u != null) ? u.loan : 0.0;
     }
 
     //Blance update
@@ -146,6 +147,32 @@ public class UsersStorage {
         return users.get(username);
     }
 
+    public void changePassword(Scanner sc){
+        pages.Pages.changePassword();
+        System.out.print("Enter username: ");
+        String usernameCheck = sc.nextLine();
+
+        System.out.print("Enter mobile number: ");
+        String mobileNumber = sc.nextLine();
+
+        User u = users.get(usernameCheck);
+
+        if (u != null && u.mobile.equals(mobileNumber)) {
+
+            System.out.print("Enter new password: ");
+            String newPass = sc.nextLine();
+
+            u.password = newPass;
+
+            saveToFile();
+
+            System.out.println("\033[1m\033[33mSuccessfully changed password\033[0m");
+
+        } else {
+            System.out.println("\033[1m\033[31mMobile number or Username does not match.\033[0m");
+        }
+    }
+
     // creating
      public boolean createUser(String username, String password, String accountType, String mobile, Double balance, Double loan) {
 
@@ -155,7 +182,7 @@ public class UsersStorage {
             return false;
         }
 
-        User newUser = new User(username, password, accountType, mobile, 0.0, 0.0);
+        User newUser = new User(username, password, accountType, mobile, balance, 0.0);
 
         users.put(username, newUser);
 

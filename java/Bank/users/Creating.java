@@ -38,6 +38,7 @@ public class Creating {
         double balance=0;
         switch(selectAccountType){
             case 1 ->{    
+                type = "personal";
                 while(true){
                     System.out.print("Deposit $ 500: ");
                     balance = sc.nextDouble();
