@@ -1,6 +1,6 @@
 kamrul,nigga,saving,018,100.0,200.0
 nayeem,1000,personal,019892,4000.0,0.0
-rabbit,looter,personal,123,100.0,120.0
+rabbit,looter,personal,123,440.0,0.0
 sutxx,1037,saving,01823116246,65867.0,37.0
-Nayeem,Rabbit,saving,018375858432,900.0,0.0
+Nayeem,Rabbit,saving,018375858432,200.0,4040.0
 sabbirsir,ictcell,personal,01999,1100.0,0.0
