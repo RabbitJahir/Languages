@@ -6,7 +6,7 @@ console.log(arr);
 
 
 // forEach	- loop
-// map	- transform
+// map	- transform forEach
 // filter - remove unwanted
 // find	- get first item
 // splice - edit array

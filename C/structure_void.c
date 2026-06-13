@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-typedef struct{   //structure, typedef:�Hey compiler, whenever I write Student, I mean this specific struct.�
+typedef struct{   //structure, typedef: Hey compiler, whenever I write Student, I mean this specific struct.
     char name[50];
     int age;
     float gpa;

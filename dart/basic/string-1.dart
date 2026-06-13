@@ -6,7 +6,7 @@ void main(){
                     "triple";
 
     String add = "yolo";
-    String add1 = "you only live once ($add)";
+    String add1 = "you only live once $add";
 
     print("$error, $error1");
     print("$add1");
