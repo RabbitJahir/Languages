@@ -3,17 +3,17 @@ using namespace std;
 int main(){
     int number[] = {10,1,5,3,4};
 
-    cout << sizeof(number)<<", size of gives value in 4 bytes"<<endl<<endl;
+    cout << sizeof(number)<<", size of given array in 4 bytes"<<endl<<endl;
 
-    for(int i=0;i<=(sizeof(number)/4)-1;i++){
+    for(int i=0;i<(sizeof(number)/4);i++){
         cout<<number[i]<<", ";
     }
 
     cout<<endl;
     cout<<endl;
 
-    for (int i=0; i<=(sizeof(number)/4)-2; i++){
-        for (int j =i+1; j<=(sizeof(number)/4)-1;j++){
+    for (int i=0; i<(sizeof(number)/4); i++){
+        for (int j =i+1; j<(sizeof(number)/4);j++){
             if (number[i] > number[j]){
                 int temp = number[i];
                 number[i] = number[j];
@@ -22,7 +22,7 @@ int main(){
         };
     };
 
-    for(int i=0;i<=(sizeof(number)/4)-1;i++){
+    for(int i=0;i<(sizeof(number)/4);i++){
         cout<<number[i]<<", ";
     }
 

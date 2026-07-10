@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 int main(){
-    int number[] = {10,1,5,3,4};
+    int number[] = {10,1,5,3,4,11};
 
-    for (int i=0; i<=(sizeof(number)/4)-2; i++){
+    for (int i=0; i<(sizeof(number)/4)-1; i++){
         for (int j =i+1; j<=(sizeof(number)/4)-1;j++){
             if (number[i] > number[j]){
                 int temp = number[i];
@@ -19,7 +19,7 @@ int main(){
 
     cout<<endl;
 
-    int find = 4;
+    int find = 11;
     int low =0;
     int high = sizeof(number)/4;
 
@@ -32,7 +32,7 @@ int main(){
             high = middle -1;
         }
         else{
-            cout<< middle<<endl;
+            cout<< middle +1 <<endl;
             break;
         }
     }
