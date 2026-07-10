@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Page</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      
+
+      .button {
+        width: 100%;
+        background-color: royalblue;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        padding: 16px;
+        margin: 15px 0;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid white;
+      }
+
+      .button:hover {
+        background-color: rgb(43, 100, 255);
+        transform: scale(1.03);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="title">Welcome to Bank</div>
+
+      <button class="button" onclick="window.location.href = 'login.html'">
+        Login
+      </button>
+
+      <button class="button" onclick="window.location.href = 'create.html'">
+        Create Account
+      </button>
+    </div>
+  </body>
+</html>

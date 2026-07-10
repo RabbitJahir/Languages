@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexible Form</title>
+    <link rel="stylesheet" href="sayra.css" />
+  </head>
+  <body>
+    <div class="main">
+      <form>
+        <h2>Sign In</h2>
+
+        <label for="username">Username</label><br />
+        <input type="text" placeholder="Enter username" required /><br /><br />
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+        /><br />
+        <small>Your password is between 4 and 12 characters</small><br /><br />
+
+        <label for="id">Student ID</label><br />
+
+        <input
+          type="text"
+          id="studentId"
+          pattern="[0-9]{14}"
+          placeholder="Enter Student ID"
+          required
+        />
+        <small id="idError" class="error-text"
+          >Please enter a valid Student ID</small
+        ><br />
+
+        <input type="checkbox" /> Remember me<br /><br />
+
+        <input type="radio" name="r" /> Radio selection 1<br />
+        <input type="radio" name="r" checked /> Radio selection 2<br />
+        <input type="radio" name="r" /> Radio selection 3<br /><br />
+
+        Dropdown Title<br />
+        <select>
+          <option>Dropdown option</option>
+          <option>Dropdown option 1</option>
+          <option>Dropdown option 2</option></select
+        ><br /><br />
+
+        <label for="notification" class="notification-label">
+          <span>Enable Notifications</span>
+
+          <div class="toggle-wrapper">
+            <label class="switch">
+              <input type="checkbox" id="toggleNotification" />
+              <span class="slider"></span>
+            </label>
+          </div> </label>
+        <br /><br />
+
+        <button type="button" class="clear">Clear</button>
+        <button type="submit" class="go">Go Next</button>
+        <br />
+      </form>
+    </div>
+  </body>
+</html>

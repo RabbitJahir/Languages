@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Timetable</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+  h1 { text-align: center; margin-bottom: 20px; }
+  table { border-collapse: collapse; width: 100%; max-width: 1200px; margin: 0 auto; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: center; vertical-align: top; }
+  th { background-color: #f0f0f0; }
+  td { background-color: #fff; min-width: 80px; position: relative; }
+  .task { 
+    margin: 2px 0; 
+    padding: 4px 6px; 
+    border-radius: 6px; 
+    font-size: 13px; 
+    font-weight: 500; 
+    color: #000; 
+  }
+  nav { text-align: center; margin-bottom: 20px; }
+  nav a { text-decoration: none; color: #007BFF; margin: 0 10px; font-weight: bold; }
+  #error { color: red; text-align: center; margin-top: 20px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a> |
+  <a href="calendar.html">Calendar</a>
+</nav>
+
+<h1>Full Timetable</h1>
+<div id="error"></div>
+<table id="calendar"></table>
+
+<script>
+function format12Hour(hour) {
+  const suffix = hour >= 12 ? "PM" : "AM";
+  const h = hour % 12 === 0 ? 12 : hour % 12;
+  return `${h}${suffix}`;
+}
+
+fetch("tasks.json")
+  .then(res => {
+    if (!res.ok) throw new Error("Could not load tasks.json");
+    return res.json();
+  })
+  .then(data => {
+    if (!data || Object.keys(data).length === 0)
+      throw new Error("tasks.json is empty or invalid");
+
+    const timeSlots = [8, 9, 10, 11, 12, 13, 14, 15]; // 8AM to 4PM
+    const daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const calendar = document.getElementById("calendar");
+    let html = "";
+
+    // Group entries by week
+    const weeks = {};
+    for (const date in data) {
+      const entry = data[date];
+      if (!entry.day || !entry.slots) continue;
+      const week = entry.week || "Week 1";
+      if (!weeks[week]) weeks[week] = [];
+      weeks[week].push({ date, day: entry.day, slots: entry.slots });
+    }
+
+    // Sort weeks numerically in DESCENDING order
+    const sortedWeeks = Object.keys(weeks).sort(
+      (a, b) => parseInt(b.replace("Week", "")) - parseInt(a.replace("Week", ""))
+    );
+
+    sortedWeeks.forEach(week => {
+      html += `<tr><th colspan="${timeSlots.length + 2}" style="background:#007BFF;color:white;">${week}</th></tr>`;
+      html += "<tr><th>Day</th><th>Date</th>";
+      timeSlots.forEach(t => html += `<th>${format12Hour(t)}-${format12Hour(t + 1)}</th>`);
+      html += "</tr>";
+
+      // Sort days properly
+      weeks[week].sort((a, b) => daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day));
+
+      weeks[week].forEach(dayObj => {
+        html += `<tr><td><b>${dayObj.day}</b></td><td>${dayObj.date}</td>`;
+
+        // Track occupied hours
+        const slotMap = {};
+        dayObj.slots.forEach(slot => {
+          if (!slot.time || !slot.task) return;
+          const [start, end] = slot.time.split("-").map(Number);
+          for (let h = start; h < end; h++) slotMap[h] = slot;
+        });
+
+        let hour = 8;
+        while (hour < 16) {
+          const slot = slotMap[hour];
+          if (slot) {
+            const [start, end] = slot.time.split("-").map(Number);
+            const span = Math.min(end, 16) - hour;
+            const colorStyle = slot.color
+              ? `background:${slot.color};color:white;border-radius:6px;`
+              : `background:#e0f7fa;`;
+            html += `<td colspan="${span}" style="${colorStyle}">${slot.task}</td>`;
+            hour += span;
+          } else {
+            html += "<td></td>";
+            hour++;
+          }
+        }
+        html += "</tr>";
+      });
+    });
+
+    calendar.innerHTML = html;
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("error").textContent =
+      "Error loading calendar: " + err.message;
+  });
+</script>
+
+</body>
+</html>

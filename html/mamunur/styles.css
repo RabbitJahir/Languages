@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --transition: all 0.3s ease;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ================= BASE ================= */
+body {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background 1.5s ease-in-out;
+}
+
+/* ================= THEME TOGGLE ================= */
+.theme-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 1.25rem;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 999;
+}
+
+.theme-toggle:hover {
+    transform: rotate(20deg) scale(1.05);
+}
+
+.theme-toggle:active {
+    transform: scale(0.9);
+}
+
+/* ================= CONTAINER LAYOUT ================= */
+.exam-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    text-align: center;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 40px 20px;
+    overscroll-behavior: contain;
+}
+
+.exam-container::-webkit-scrollbar {
+    display: none;
+}
+
+.exam-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px rgba(255,255,255,0.35);
+}
+
+.special-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.button-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.button-stack a {
+    min-width: 260px;
+    padding: 18px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    transition: var(--transition);
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+}
+

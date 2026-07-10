@@ -1,0 +1,12 @@
+-> always have header and footer
+-> header, footer, section, div, nav, table
+-> section is like the structure of a building, div is the decoration only, both exterior and interior.
+-> id should always be different, class can be same
+-> id with section and class with div
+-> id for unique, contact, pricing, linkables, page landmark
+-> class for layout, syling, repeats, grid, container, button
+-> best to have div inside section, 
+-> section id=" "
+   div class="container"
+
+-> box-sizing:border-box;   (prevents width from breaking when padding added)

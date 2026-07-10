@@ -1,0 +1,85 @@
+/*
+Question_1
+-> Hoisting: Js moving functions and variables to top of the code before executing, makes memories.
+-> Variables only hoist memories, undefined memories, but functions hoist fully, everythig inside it.
+->TDZ is the time between variable hoisted And variable initialized. They exist in memory but cannot be accessed before initialization. Let and Const are placed in TDZ, although they are hoisted but their memory arent created.
+*/
+
+/*
+Question_2
+
+Scope :
+let name = "Rabbit";
+
+function greet() {
+  console.log(name);
+}
+
+greet();
+
+
+Scope Chain :
+let globalVar = "I am rabbit";
+
+function outer() {
+    let outerVar = "I am rabbit";
+
+    function inner() {
+        let innerVar = "I am rabbit";
+
+        console.log(innerVar);  
+        console.log(outerVar); 
+        console.log(globalVar); 
+    }
+
+    inner();
+}
+
+outer();
+
+
+Lexical Environment:
+
+function outer(){
+  let a = 0;
+
+    function inner(){
+      
+      a+=3;
+      console.log(a);
+    }
+    return inner;
+}
+
+const counter = outer();
+
+counter();
+counter();
+counter();
+
+
+First CLass function :
+
+const greet = function() {
+    console.log("Hello!");
+};
+
+greet(); 
+*/
+
+/*
+Question_3
+->1. a is hoisted, memory is saved, but as the code runs top to bottom, no value of a is found to console, thus undefined value shows.
+->2. b has let type, let and const type also get hoisted the same way, but, the system cant set them any value, undefined is an value, thus error pops us.
+->3. in line 4 and 7.
+*/
+
+/*
+Question_4
+->1.  11.5
+      23
+      34.5
+->2. Don't understand what count means, but for closure the number dont restart from 0;
+->3. Closure happens when functions are defined, closures remembers their progress, so when the code goes    to a+=11.5, the code remembers the last value send out, thus adding 11.5 to the value again and again.
+->
+*/

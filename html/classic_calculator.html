@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>classic calculator</title>
+    <script>
+        function add() {
+            var a = parseFloat(document.getElementById("b1").value);
+            var b = parseFloat(document.getElementById("b2").value);
+            document.getElementById("result").value = a + b;
+        }
+
+        function subtract() {
+            var a = parseFloat(document.getElementById("b1").value);
+            var b = parseFloat(document.getElementById("b2").value);
+            document.getElementById("result").value = a - b;
+        }
+
+        function multiply() {
+            var a = parseFloat(document.getElementById("b1").value);
+            var b = parseFloat(document.getElementById("b2").value);
+            document.getElementById("result").value = a * b;
+        }
+
+        function divide() {
+            var a = parseFloat(document.getElementById("b1").value);
+            var b = parseFloat(document.getElementById("b2").value);
+            if (b !== 0) {
+                document.getElementById("result").value = a / b;
+            } else {
+                document.getElementById("result").value = "Error: Division by zero";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var buttons = document.querySelectorAll('input[type="button"]');
+            buttons[0].addEventListener("click", add);
+            buttons[1].addEventListener("click", subtract);
+            buttons[2].addEventListener("click", multiply);
+            buttons[3].addEventListener("click", divide);
+        });
+
+    </script>
+</head>
+
+<body>
+    <input type="text" name="B1" placeholder="FirstNumber" id="b1"></input>
+    <input type="text" name="B2" placeholder="SecondNumber" id="b2"></input>
+    <br><br>
+    <input type="button" value="+"></input>
+    <input type="button" value="-"></input>
+    <input type="button" value="*"></input>
+    <input type="button" value="/"></input>
+    <br><br>
+    Result: <input type="text" id="result" readonly></input>
+</body>
+
+</html>

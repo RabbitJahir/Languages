@@ -1,0 +1,43 @@
+10-feb
+/* 
+execution context : 
+   js part : 
+      memory Component
+      code Component
+   js phase 
+      creation phase 
+      execcution phase
+    
+    data type
+    loop 
+    if-else 
+    map
+    filter
+    object
+    array
+*/
+
+
+19-feb
+/*
+   function statement
+   function expression
+   anonymous function 
+   first class function 
+   call back function
+   arrow function 
+   call stack 
+*/
+
+20-feb
+/*
+ -> Hoisting 
+ -> Scope 
+ -> scope chain  
+  lexical environment 
+ -> closure 
+ -> shadowing 
+ -> TDZ(temporal dead zone)
+ -> Let/const
+*/
+

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bank Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    .main {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* LEFT SIDE */
+    .left {
+      width: 300px;
+      background: steelblue;
+      padding: 20px;
+      color: white;
+    }
+
+    #title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .lists {
+      list-style: none;
+      padding: 0;
+    }
+
+    .lists li {
+      background: rgb(52, 103, 145);
+      margin: 12px 0;
+      padding: 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .lists li:hover {
+      background: rgb(72, 133, 184);
+    }
+
+    /* RIGHT SIDE PANEL */
+    .right-panel {
+      flex: 1;
+      background: white;
+      padding: 30px;
+      display: none;
+    }
+
+    .right-panel.active {
+      display: block;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: steelblue;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div id="title"></div>
+
+      <ol class="lists">
+        <li onclick="openPanel('User Details Page')">User Details</li>
+        <li onclick="openPanel('Balance Page')">Balance</li>
+        <li onclick="openPanel('Deposit Page')">Deposit</li>
+        <li onclick="openPanel('Withdraw Page')">Withdraw</li>
+        <li onclick="openPanel('Loan Page')">Loan</li>
+      </ol>
+
+      <button class="back-btn" onclick="window.history.back()">
+        Go Back
+      </button>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-panel" id="panel">
+      <h1 id="panel-title"></h1>
+
+      <button onclick="closePanel()">
+        Close
+      </button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function openPanel(text) {
+      const panel = document.getElementById("panel");
+      const title = document.getElementById("panel-title");
+
+      title.textContent = text;
+
+      panel.classList.add("active");
+    }
+
+    function closePanel() {
+      document.getElementById("panel")
+        .classList.remove("active");
+    }
+  </script>
+
+</body>
+</html>

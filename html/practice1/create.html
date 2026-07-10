@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Create</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      #myForm {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      #myForm input {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 12px;
+        border: none;
+        outline: none;
+        background-color: rgb(135, 214, 214);
+        font-weight: bold;
+      }
+
+      #myForm input:focus {
+        border: 2px solid white;
+      }
+
+      #login {
+        width: 100%;
+        padding: 14px;
+        background-color: royalblue;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+      }
+
+      #login:hover {
+        background-color: rgb(39, 89, 238);
+        transform: scale(1.03);
+      }
+
+      #message {
+        color: rgb(255, 85, 85);
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+        min-height: 25px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="title">Account Create Menu</div>
+
+      <form id="myForm">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="input-group">
+          <label>Retype Password</label>
+          <input type="repassword" id="repassword" name="repassword" required />
+        </div>
+
+        <div class="input-group">
+          <label>Phone Number</label>
+          <input
+            type="mobile_number"
+            id="mobile_number"
+            name="mobile_number"
+            required
+          />
+        </div>
+
+        <div id="message"></div>
+
+        <button id="login" type="submit">Login</button>
+      </form>
+      <!--Back Button-->
+      <button class="back-btn" onclick="window.history.back()">Go Back</button>
+    </div>
+
+    <script src="first.js"></script>
+  </body>
+</html>

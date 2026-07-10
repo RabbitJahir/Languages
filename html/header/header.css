@@ -1,0 +1,82 @@
+body{
+  margin: 0;
+  font-size: 18px;
+}
+
+header{
+  background-color: rgb(50, 196, 196);
+  width: 100%;
+}
+
+nav{
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 10px;
+  font-weight:bolder;
+  align-items: center;
+}
+
+nav a{
+  text-decoration: none;
+  color:rgb(82, 12, 148);
+}
+
+nav a:hover{
+  color:brown;
+}
+
+.right-side{
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+img{
+  width: 30px;
+}
+
+------------------------------------
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+}
+
+/* Button */
+.dropbtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Hidden menu */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 150px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  top: 100%;
+  left: 0;
+}
+
+/* Links inside dropdown */
+.dropdown-content a {
+  display: block;
+  padding: 0px 0px;
+  text-decoration: none;
+  color: black;
+}
+
+/* Hover effect */
+.dropdown-content a:hover {
+  background-color: #eee;
+}
+
+/* Show on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
