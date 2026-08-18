@@ -1,7 +1,14 @@
 #include <iostream>
 using namespace std;
 int main(){
-    int number[] = {10,1,5,3,4,11};
+    int inputs;
+    cin>>inputs;
+
+    int number[inputs];
+
+    for(int i=0;i<inputs;i++){
+        cin>>number[i];
+    }
 
     for (int i=0; i<(sizeof(number)/4)-1; i++){
         for (int j =i+1; j<=(sizeof(number)/4)-1;j++){
@@ -19,12 +26,14 @@ int main(){
 
     cout<<endl;
 
-    int find = 11;
+    int find;
+    cout<<"find ? ";
+    cin>>find;
     int low =0;
-    int high = sizeof(number)/4;
+    int high = sizeof(number)/4-1;
 
-    while(low<high){
-        int middle = (low+high)/2;
+    while(low<=high){
+        int middle = low+ (high-low)/2;
         if(number[middle]<find){
             low = middle +1;
         }
