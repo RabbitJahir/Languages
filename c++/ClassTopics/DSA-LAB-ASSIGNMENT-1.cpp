@@ -19,27 +19,21 @@ void honestyCheck(int inputs[], int old_inputs[], int numbers, int find){
     int sort_question_mark;
     
     cout<<endl;
-    cout<<"Is your given array sorted?"<<endl<<"1: Yes"<<endl<<"2: No"<<endl<<"Enter 1 or 2: ";    cin>>sort_question_mark;
-    cout<<endl;
+    cout<<"Is your given array sorted?"<<endl<<"1: Yes"<<endl<<"2: No"<<endl<<"Enter 1 or 2: ";    cin>>sort_question_mark; cout<<endl;
 
     switch(sort_question_mark){
         case 1: 
             for(int i=0;i<numbers;i++){
                 if(old_inputs[i]!=inputs[i]){
-                    cout<<"Lying is moha pap!"<<endl;
-                    cout<<"Here is your sorted array:"<<endl;
-                    break;
+                    cout<<"Lying is moha pap!"<<endl; cout<<"Here is your sorted array:"<<endl; break;
                 } else if(i==numbers-1) {
-                    cout<<"Thank you for your honesty"<<endl;
-                    cout<<"Here is your given array:"<<endl;
+                    cout<<"Thank you for your honesty"<<endl; cout<<"Here is your given array:"<<endl;
                 }
             }
-
             for(int i = 0; i < numbers; i++){
                 cout<<inputs[i]<<", ";
             } 
-            cout<<endl;
-            cout<<"will search for : "<<find<<", on the upper array"<<endl<<endl;
+            cout<<endl; cout<<"will search for : "<<find<<", on the upper array"<<endl<<endl;
             break;
         case 2:
             for(int i=0;i<numbers;i++){
@@ -102,41 +96,54 @@ void binary(int inputs[], int numbers, int find){
     }
 }
 
+void ternary(int inputs[], int numbers, int find){
+    int left=0;
+    int right=numbers-1;
+    
+    while(left<=right){
+        int mid1 = left+(right-left)/3;
+        int mid2 = right-(right-left)/3;
+
+        if(find<inputs[mid1]){
+            right=mid1-1;
+        } else if(find>inputs[mid2]){
+            left=mid2+1;
+        } else if(find==inputs[mid2]){
+            cout<<"Found at index :"<<mid2;
+            break;
+        } else if(find==inputs[mid1]){
+            cout<<"Found at index :"<<mid1;
+            break;    
+        } else {
+            left=mid1+1;
+            right=mid2-1;
+        }
+    }
+    if(left>=right){
+        cout<<find<<", not found.";
+    }
+
+}
+
 
 int main(){
 
 int numbers;
-cout<<"How many numbers to input: ";cin>>numbers;
+cout<<"How many numbers to input: "; cin>>numbers;
 
-// while(true){
-//     if(cin>>numbers){
-//         if(numbers>0){
-//             return 1;
-//         } else {
-//             cout<<"Positive numbers only.";
-//         }
-//     } else {
-//         cout<<"You think this is a number?";
-//     }
-//     cout<<"Enter positive and valid numbers only: "; cin>>numbers;
-// }
-
-cout<<"Enter "<<numbers<<" numbers: ";
-int inputs[numbers];
+cout<<"Enter "<<numbers<<" numbers: "; int inputs[numbers];
 for(int i = 0; i < numbers; i++){
     cin>>inputs[i];
 }
-int find;
-cout<<"What value would you like to search in here: ";cin>>find; cout<<endl;
+
+int find; cout<<"What value would you like to search in here: "; cin>>find; cout<<endl;
 
 int old_inputs[numbers];
 for(int i = 0; i < numbers; i++){
     old_inputs[i]=inputs[i];
 }
 
-
 bubbleSort(inputs, numbers);
-
 honestyCheck(inputs, old_inputs, numbers, find);
 
 int search_alrogithm = search();
@@ -152,9 +159,9 @@ switch (search_alrogithm){
         break;
     case 3: 
         cout<<"Searching in Ternary algorithm"<<endl;
+        ternary(inputs, numbers, find);
         break;
 }
-
     return 0;
-}
+} 
 
