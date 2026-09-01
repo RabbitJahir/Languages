@@ -1,7 +1,5 @@
-# Creating the Tables
-
-
 ## Creating the tables
+
 ```sql
 CREATE TABLE students_account (
     db_id INT AUTO_INCREMENT PRIMARY KEY,
