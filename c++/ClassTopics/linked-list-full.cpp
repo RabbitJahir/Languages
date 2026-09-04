@@ -112,8 +112,46 @@ int main(){
                 }
                 current=current->next;
                 }
+
+            } else {
+                int del;
                 
+                cout<<"Enter the number to delete :";
+                cin>>del;
+
+                // new pointer to store the current values
+                Node* skipper = nullptr;
+
                 current=head;
+                while(current!=nullptr){
+
+                    // current-> data finds the value to delete
+                    if(current->data == del){
+                        
+                       // saving the Node to be deleted in pointer toDelete
+                        Node* toDelete = current;
+
+                        // We change current to the value after the deletion value
+                        current = current->next;
+                        // we stored the before Node of deletion node, 
+                        // and we give the before node->next the address of the after deletion Node, 
+                        // thus the value that was to be deleted, lost itself from the link, but the actual Node is yet not deleted
+                        skipper->next = current;
+
+                        // this delete keyword, permanently deletes the Node, 
+                        delete toDelete;
+
+                    }
+
+                    // skipster has the current Node, but current changes to the next
+                    skipper = current;
+
+                    // current changes to next Node
+                    current = current->next;
+                }
+            }
+
+            current=head;
                 while(current!=nullptr){
                 
                 cout<<"["<<current<<"] "<<current->data<<" ["<<current->next<<"]";
@@ -124,22 +162,6 @@ int main(){
                 }
                 cout<<endl;
                 }
-
-            } else {
-                int del;
-                
-                cout<<"Enter the number to delete :";
-                cin>>del;
-
-                current=head;
-                while(current!=nullptr){
-                    if(current->data == del){
-                        Node* temp = nullptr;
-                        temp = current->next;
-
-                    }
-                }
-            }
         }
     }
 
