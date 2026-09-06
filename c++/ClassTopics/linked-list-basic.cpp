@@ -27,7 +27,7 @@ int main(){
 
         // starting with head to start a link
         // making the new node
-
+        
         // initialized that head is null
         if(head==NULL){
             head = new Node;
@@ -68,6 +68,7 @@ int main(){
         if(current!=nullptr){
             cout<<"->";
         }
+        // just for practice
         cout<<endl;
     }
             
