@@ -1,6 +1,3 @@
----
-
-
 ### Table 1: `client_master`
 
 | Field Name | Data Type | Key Type | Description |
@@ -42,10 +39,10 @@ INSERT INTO client_master (client_no, name, city, pincode, state, bal_due) VALUE
 
 ```sql
 INSERT INTO product_master (product_no, description, profit_percent, unit_measure, qty_on_hand, reorder_lvl, sell_price, cost_price) VALUES
-('P00001', '1.44floppies', 5.0, 'Piece', 100, 20, 525.00, 500.00),
+('P00001', '1.44 Drive', 5.0, 'Piece', 100, 20, 525.00, 500.00),
 ('P03453', 'Monitors', 6.0, 'Piece', 10, 3, 12000.00, 11200.00),
 ('P06734', 'Mouse', 5.0, 'Piece', 20, 3, 10500.00, 500.00),
-('P07865', '1.22 floppies', 5.0, 'Piece', 100, 20, 525.00, 500.00),
+('P07865', '1.22 Drive', 5.0, 'Piece', 100, 20, 525.00, 500.00),
 ('P07868', 'Keyboards', 2.0, 'Piece', 10, 3, 3150.00, 3050.00),
 ('P07885', 'CD Drive', 2.5, 'Piece', 10, 3, 5250.00, 5100.00),
 ('P07965', '540 HDD', 4.0, 'Piece', 10, 3, 8400.00, 8000.00),
