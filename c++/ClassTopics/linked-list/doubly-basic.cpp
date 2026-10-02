@@ -41,9 +41,9 @@ int main(){
 
     current = head;
     while(current!=NULL){
-        cout<<current->Data;
+        cout<<current->Head<<" -> "<<current->Data<<" -> "<<current->Tail;
         if(current->Tail!=nullptr){
-            cout<<" -> ";
+            cout<<"\n";
         }
         current = current->Tail;
     }

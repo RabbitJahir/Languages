@@ -6,9 +6,9 @@ Stores all users.
 
 ```sql
 CREATE TABLE user_account (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     full_name VARCHAR(100) NOT NULL,
-    mobile VARCHAR(15) UNIQUE NOT NULL,
+    mobile CHAR(13) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE,
     password_hash VARCHAR(255) NOT NULL
 );
@@ -21,7 +21,7 @@ Defines the types of users that can exist in the system.
 ```sql
 CREATE TABLE role (
     role_id TINYINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    role_name VARCHAR(30) UNIQUE NOT NULL
+    role_name CHAR(6) UNIQUE NOT NULL
 );
 ```
 
@@ -43,7 +43,7 @@ A user can have more than one role. For example, the same person may be both an 
 
 ```sql
 CREATE TABLE user_role (
-    user_id INT NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
     role_id TINYINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (user_id, role_id),
@@ -66,15 +66,15 @@ Stores building/property-level information.
 
 ```sql
 CREATE TABLE building (
-    building_id INT PRIMARY KEY AUTO_INCREMENT,
+    building_id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
 
-    owner_id INT NOT NULL,
+    owner_id INT UNSIGNED NOT NULL,
 
-    area_name VARCHAR(50) NOT NULL,
-    local_name VARCHAR(50),
-    local_attribute VARCHAR(100),
-    formal_address VARCHAR(255) NOT NULL,
-    contact_number VARCHAR(15),
+    area_name NVARCHAR(50) NOT NULL,
+    local_name NVARCHAR(50),
+    local_attribute NVARCHAR(100),
+    formal_address NVARCHAR(255) NOT NULL,
+    contact_numbers JSON CHECK (JSON_VALID(contact_numbers)),
 
     has_lift BOOLEAN DEFAULT TRUE,
 
@@ -89,11 +89,11 @@ Stores individual rentable rooms inside a building.
 
 ```sql
 CREATE TABLE room (
-    room_id INT PRIMARY KEY AUTO_INCREMENT,
+    room_id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
 
-    building_id INT NOT NULL,
+    building_id INT UNSIGNED NOT NULL,
 
-    room_number VARCHAR(20),
+    room_number CHAR(5),
     floor TINYINT UNSIGNED NOT NULL,
 
     price DECIMAL(10,2) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE room (
 
     negotiable BOOLEAN DEFAULT TRUE,
 
-    other_rules VARCHAR(500),
+    other_rules NVARCHAR(500),
 
     FOREIGN KEY (building_id)
         REFERENCES building(building_id)
@@ -124,7 +124,7 @@ Contains the master and initial lists of facilities supported by the application
 ```sql
 CREATE TABLE facility (
     facility_id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    facility_name VARCHAR(50) UNIQUE NOT NULL,
+    facility_name NVARCHAR(50) UNIQUE NOT NULL,
     description VARCHAR(255)
 );
 ```
@@ -219,10 +219,10 @@ Stores actual rental agreements.
 
 ```sql
 CREATE TABLE rental (
-    rental_id INT PRIMARY KEY AUTO_INCREMENT,
+    rental_id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
 
-    room_id INT NOT NULL,
-    tenant_id INT NOT NULL,
+    room_id INT UNSIGNED NOT NULL,
+    tenant_id INT UNSIGNED NOT NULL,
 
     start_date DATE NOT NULL,
     end_date DATE,
@@ -269,83 +269,3 @@ CREATE TABLE user_documents (
 ---
 
 # Relationship Overview
-
-```text
-                         ┌──────────────────┐
-                         │   user_account   │
-                         │                  │
-                         │ PK user_id       │
-                         └───────┬──────────┘
-                                 │
-                         ┌───────┴────────┐
-                         │                │
-                         ▼                ▼
-                    ┌─────────┐     ┌─────────────┐
-                    │user_role│     │user_documents│
-                    └────┬────┘     └─────────────┘
-                         │
-                         ▼
-                    ┌─────────┐
-                    │  role   │
-                    └─────────┘
-
-
-user_account
-     │
-     │ owner_id
-     ▼
-  building
-     │
-     ├───────────────┐
-     │               │
-     ▼               ▼
-building_facility   room
-     │               │
-     ▼               ├──────────► room_images
-  facility           │
-     ▲               └──────────► room_facility
-     │
-     └────── facility
-
-room
- │
- └──────────────► rental ◄──────── user_account
-                       tenant_id
-```
-
-## Main cardinalities
-
-```text
-user_account 1 : N building
-user_account N : M role
-building     1 : N room
-building     N : M facility
-room         N : M facility
-room         1 : N room_images
-room         1 : N rental
-user_account 1 : N rental
-user_account 1 : N user_documents
-```
-
-## Important ownership rule
-
-`building.owner_id` points to `user_account.user_id`.
-
-However, the application should ensure that the referenced user has the `Owner` role.
-
-The database identifies the owner through:
-
-```text
-building.owner_id
-       │
-       ▼
-user_account.user_id
-       │
-       ▼
-user_role
-       │
-       ▼
-role = Owner
-```
-
-Similarly, `rental.tenant_id` points to `user_account.user_id`, and the application/database design should ensure that the user has the `Tenant` role.
