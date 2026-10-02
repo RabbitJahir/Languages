@@ -79,7 +79,7 @@ INSERT INTO product_master (product_no, description, profit_percent, unit_measur
 
 1. `SELECT name FROM client_master;`
 2. `SELECT name, city FROM client_master;`
-3. `SELECT description FROM product_master;`
+3. `SELECT DISTINCT description FROM product_master;`
 4. `SELECT * FROM client_master WHERE city = 'Bombay';`
 5. `SELECT * FROM client_master WHERE client_no IN ('0001', '0002');`
 6. `SELECT * FROM product_master WHERE description IN ('1.44 Drive', '1.22 Drive');`
