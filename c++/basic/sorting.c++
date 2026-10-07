@@ -13,7 +13,7 @@ int count =0;
     cout<<endl;
 
     for (int i=0; i<(sizeof(number)/4)-1; i++){
-        for (int j =i+1; j<(sizeof(number)/4);j++){
+        for (int j =i+1; j<(sizeof(number)/4)-i-1;j++){
             if (number[i] > number[j]){
                 int temp = number[i];
                 number[i] = number[j];
