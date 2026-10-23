@@ -34,12 +34,8 @@ void peek(){
     cout << "peek: " << arr[top] << endl;
 }
 
-bool isEmpty() {
-    return top == -1;
-}
-
 void display() {
-    if (isEmpty()) {
+    if (top==-1) {
         cout << "Stack is empty!" << endl;
         return;
     }
@@ -54,12 +50,10 @@ int main(){
 
     // push, pop, peep, overflow, underflow, empty, stack[-1], isEmpty
 
-    push()
+    push(10);
     pop();
 
     display();
 
     return 0;
 }
-
-// 1000+ rating, any judge , CO4
