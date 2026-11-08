@@ -48,7 +48,7 @@ void display() {
 
 int main(){
 
-    // push, pop, peep, overflow, underflow, empty, stack[-1], isEmpty
+    // push, pop, peek, overflow, underflow, empty, stack[-1], isEmpty
 
     push(10);
     pop();

@@ -8,7 +8,8 @@ int rear = -1;
 int d[SIZE];
 
 bool isfull() {
-    return (front==0 && rear==SIZE-1);
+    // last e value gelei full, pop korleo kaj hobe na
+    return rear == SIZE-1;
 }
 
 bool isempty() {
@@ -17,19 +18,14 @@ bool isempty() {
 
 void push(int input) {
     if (isfull()) {
-        cout << "Queue is full. "<<input<<" can not be inserted."<<endl;
+        cout << "Queue is full. " << input << " can not be inserted." << endl;
         return;
     }
 
     if (isempty()) {
         front = rear = 0;
-    } else if(front==0 ){
+    } else {
         rear++;
-    } else if(front!=0){
-        front--;
-        d[--front]=input;
-        
-        return;
     }
 
     d[rear] = input;
@@ -37,7 +33,7 @@ void push(int input) {
 
 void pop() {
     if (isempty()) {
-        cout << "Queue is empty"<<endl;
+        cout << "Queue is empty" << endl;
         return;
     }
 
@@ -51,16 +47,20 @@ void pop() {
 }
 
 void display() {
-    cout<<endl;
+    cout << endl;
+
     if (isempty()) {
         cout << "Queue is empty\n";
         return;
     }
 
-    for(int i=front;i<=rear;i++){
-        cout<<d[i]<<", ";
+    int i = front;
+
+    for(int i=front;i<SIZE;i++){
+        cout<<d[i]<<" ";
     }
-    cout<<endl;
+
+    cout << endl;
 }
 
 int main() {
